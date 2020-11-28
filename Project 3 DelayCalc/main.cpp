@@ -1,8 +1,13 @@
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <vector>
+#include <map>
+#include "graphstruc.h"
+#include "mapstruc.h"
 using namespace std;
 
-int main() {
+void Display() {
 	cout << "###################################################################################################" << endl;
 	cout << "#                    _                                                                            #" << endl;
 	cout << "#                  -=\\`\\                                                                          #" << endl;
@@ -46,8 +51,8 @@ int main() {
 	cout << "            -yNms/.``.:++-   `oM+         `dMMy.   `sMMh:----:/sm+    `/dNh+:.``.:++`              " << endl;
 	cout << "              `-/oooo/-`    .////:.      .://///: -://///////////        .:+ooo+/.                 " << endl;
 	cout << endl;
-	cout << "Please enter a year between 2010 and 2019: 2019" << endl;
-	cout << endl;
+}
+void MenuSelect() {
 	cout << "Please select an option from the following menu:" << endl;
 	cout << "1. Input a company (via company identification code)" << endl;
 	cout << "2. Input a location" << endl;
@@ -56,15 +61,35 @@ int main() {
 	cout << "5. Input type of delay" << endl;
 	cout << "6. Input preferred departure time (example being 16:42)" << endl;
 	cout << "7. Help" << endl;
-	cout << "6. Exit" << endl;
+	cout << "8. Exit" << endl;
 	cout << endl;
-	cout << "Airport: ATL" << endl;
-	cout << "The average delay time at ATL is: XXXX" << endl;
-	cout << "The most common company flown at ATL is: XXXX" << endl;
-	cout << "The average delay type that is seen at ATL is: XXXX" << endl;
-	cout << "The chance of a plane being delayed at ATL is: XXXX" << endl;
-	cout << "The total number of trips to ATL is: XXXX" << endl;
-	cout << "The total number of trips arriving at ATL is: XXXX" << endl;
-	cout << "The total number of trips departing from ATL is: XXXX" << endl;
+}
+
+int main() {
+	Display();
+	string data, input;
+	cout << "Please enter a year between 2016 and 2018: " << endl;
+	cin >> data;
+	//this is where we will read the data package and store it
+	//perhaps we will also choose what data structure we will choose here
+	cout << "Please select a data structure to test: " << endl;
+	cout << "1. Map" << endl;
+	cout << "2. Directed Graph" << endl;
+	// reads in the data differently depending on the chosen data structure?
+	cin >> input;
+	cout << endl;
+	while (input != "8") {
+		MenuSelect();
+		cin >> input;
+		//do things
+	}
+	//cout << "Airport: ATL" << endl;
+	//cout << "The average delay time at ATL is: XXXX" << endl;
+	//cout << "The most common company flown at ATL is: XXXX" << endl;
+	//cout << "The average delay type that is seen at ATL is: XXXX" << endl;
+	//cout << "The chance of a plane being delayed at ATL is: XXXX" << endl;
+	//cout << "The total number of trips to ATL is: XXXX" << endl;
+	//cout << "The total number of trips arriving at ATL is: XXXX" << endl;
+	//cout << "The total number of trips departing from ATL is: XXXX" << endl;
 	return 0;
 }
