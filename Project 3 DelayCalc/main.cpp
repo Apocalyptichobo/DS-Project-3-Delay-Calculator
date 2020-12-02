@@ -3,7 +3,12 @@
 #include <fstream>
 #include <vector>
 #include <map>
-#include "graphstruc.h"
+#include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <ctime>
+#include <random>
+#include "graphstruc1.h"
 #include "mapstruc.h"
 using namespace std;
 
@@ -64,32 +69,60 @@ void MenuSelect() {
 	cout << "8. Exit" << endl;
 	cout << endl;
 }
+bool validate(int input, vector<int> numbers)
+{
+	for(int i = 0; i < numbers.size(); i++)
+	{
+		if(input == numbers[i])
+			return true;
+	}
+	cout << "Invalid input" << endl;
+	return false;
+}
 
 int main() {
 	Display();
-	string data, input;
-	cout << "Please enter a year between 2016 and 2018: " << endl;
-	cin >> data;
+	bool valid = false;
+	int year, structure, menuOption;
+	while(!valid)
+	{
+		cout << "Please enter a year between 2016 and 2018: " << endl;
+		cin >> year;
+		valid = validate(year, {2016, 2017, 2018});
+	}
+	valid = false;
 	//this is where we will read the data package and store it
 	//perhaps we will also choose what data structure we will choose here
-	cout << "Please select a data structure to test: " << endl;
-	cout << "1. Map" << endl;
-	cout << "2. Directed Graph" << endl;
 	// reads in the data differently depending on the chosen data structure?
-	cin >> input;
-	cout << endl;
-	while (input != "8") {
-		MenuSelect();
-		cin >> input;
-		//do things
+	while(!valid)
+	{
+		cout << "Please select a data structure to test: " << endl;
+		cout << "1. Map" << endl;
+		cout << "2. Directed Graph" << endl;
+		cin >> structure;
+		valid = validate(structure, {1,2});
 	}
-	//cout << "Airport: ATL" << endl;
-	//cout << "The average delay time at ATL is: XXXX" << endl;
-	//cout << "The most common company flown at ATL is: XXXX" << endl;
-	//cout << "The average delay type that is seen at ATL is: XXXX" << endl;
-	//cout << "The chance of a plane being delayed at ATL is: XXXX" << endl;
-	//cout << "The total number of trips to ATL is: XXXX" << endl;
-	//cout << "The total number of trips arriving at ATL is: XXXX" << endl;
-	//cout << "The total number of trips departing from ATL is: XXXX" << endl;
-	return 0;
+	valid = false;
+	if (structure == 1) {
+		clock_t t = clock();
+		MapS m(year);
+		while (menuOption != 8) {
+			MenuSelect();
+			cin >> menuOption;
+			t = clock() - t;
+			cout << "Run time: " << t / 100 << " seconds" << endl;
+		}
+		return 0;
+	}
+	else if (structure == 2) {
+		clock_t t = clock();
+		GraphS g(year);
+		while (menuOption != 8) {
+			MenuSelect();
+			cin >> menuOption;
+			t = clock() - t;
+			cout << "Run time: " << t / 100 << " seconds" << endl;
+		}
+		return 0;
+	}
 }
