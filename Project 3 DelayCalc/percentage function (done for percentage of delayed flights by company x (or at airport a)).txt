@@ -1,0 +1,49 @@
+int total_flights = 0;
+int number_flights_delayed = 0;
+
+float pct(int key)
+ {
+
+	float total_flights = 0;
+	float number_flights_delayed = 0;
+
+
+    for(auto iter = data.begin(); iter != data.end(); iter++)
+    {
+	   if(iter->second.carrier == key)
+	   {
+
+		   if(iter->second.carrier_delay != -1)
+		   {	
+			   number_flights_delayed++;
+			   continue;
+		   }
+		   else if(iter->second.weather_delay != -1)
+		   {	
+			  number_flights_delayed++;
+			  continue;
+		  }
+		  else if(iter->second.nas_delay != -1)
+		  {	
+			  number_flights_delayed++;
+			  continue;
+		  }
+		  else if(iter->second.security_delay != -1)
+		  {	
+			  number_flights_delayed++;
+			  continue;
+		  }
+		  else if(iter->second.late_aircraft_delay != -1)
+		  {	
+			 number_flights_delayed++;
+			 continue;
+		  } 
+		
+	   }
+	
+	   total_flights++;
+       }
+
+return number_flights_delayed/total_flights;
+
+}
