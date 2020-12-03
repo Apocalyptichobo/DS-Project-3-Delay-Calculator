@@ -4,7 +4,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <map>a
+#include <map>
 #include <sstream>
 using namespace std;
 
@@ -21,7 +21,7 @@ private:
 
 		int crs_dept_time;
 		int dept_time;
-		int dep_delay;
+		int dep_delay; //delay time
 
 		int taxi_out;
 		int wheels_off;
@@ -31,10 +31,9 @@ private:
 
 		int crs_arr_time;
 		int arr_time;
-		int arr_delay;
+		int arr_delay; //second delay time
 
 		int cancelled;
-
 		string cancel_code;
 
 		int diverted;
@@ -57,8 +56,9 @@ public:
 	map<int, Flight> data; //key first line, value is the flight data
 	MapS();
 	MapS(int year);
-	int total(string key); //total X's at airport. 
-	float average(string key); //average X's at airport.
-
+	int total(string search); //total X's at airport. 
+	float average(string search); //average X's at airport.
+	string delayType(); //find the most common type of delay
 
 };
+

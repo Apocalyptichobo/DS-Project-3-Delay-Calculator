@@ -4,7 +4,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <map>a
+#include <map>
 #include <sstream>
 using namespace std;
 
@@ -15,11 +15,11 @@ private:
 
 		int date;
 
-		string op_carrier;
-		int op_carrier_fl_num;
+		string carrier;
+		string flight_number;
 
-		int crs_dep_time;
-		int dep_time;
+		int crs_dept_time;
+		int dept_time;
 		int dep_delay;
 
 		int taxi_out;
@@ -33,7 +33,7 @@ private:
 		int arr_delay;
 
 		int cancelled;
-		int cancellation_code;
+		string cancel_code;
 
 		int diverted;
 		int crs_elapsed_time;
@@ -48,26 +48,16 @@ private:
 		int nas_delay;
 		int security_delay;
 		int late_aircraft_delay;
-
-		int unnamed;
-		int flight_id;
-
 	};
-
-	int row, column;
-	//2D vector for our adjacency matrix
-	vector<vector<Graph_Flight>> AdjMatrix(row, vector<int>(column));
-
-
+	//our adjacency matrix
+	//vector<vector<GFlight>> AdjMatrix(int row, vector<int>(column));
+	vector<vector<GFlight>> AdjMatrix;
+	GFlight a_matrix[1][1];
 public:
 	GraphS();
 	GraphS(int year);
 
 };
-
-
 // 2016: 313 by 313 (airport graph)
 // 2017: 320 by 320 (airport graph)
 // 2018: 358 by 358 (airport graph)
-
-#pragma once

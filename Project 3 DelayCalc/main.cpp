@@ -60,13 +60,12 @@ void Display() {
 void MenuSelect() {
 	cout << "Please select an option from the following menu:" << endl;
 	cout << "1. Input a company (via company identification code)" << endl;
-	cout << "2. Input a location" << endl;
-	cout << "3. Input and arrival location and a departure location" << endl;
-	cout << "4. Input an airport (via three letter identification code)" << endl;
-	cout << "5. Input type of delay" << endl;
-	cout << "6. Input preferred departure time (example being 16:42)" << endl;
-	cout << "7. Help" << endl;
-	cout << "8. Exit" << endl;
+	cout << "2. Input an arrival location and a departure location" << endl;
+	cout << "3. Input an airport (via three letter identification code)" << endl;
+	cout << "4. Input type of delay" << endl;
+	cout << "5. Input preferred departure time (example being 16:42)" << endl;
+	cout << "6. Help" << endl;
+	cout << "7. Exit" << endl;
 	cout << endl;
 }
 bool validate(int input, vector<int> numbers)
@@ -79,7 +78,44 @@ bool validate(int input, vector<int> numbers)
 	cout << "Invalid input" << endl;
 	return false;
 }
+void Option1(){
+	// Input a company (via company identification code)
+	cout << "Average delay time for X: " << endl;
+	cout << "Most common delay issue for X: " << endl;
+	cout << "Percentage of flights delayed for X: " << endl;
+	cout << "Average travel time for X: " << endl;
+	cout << "Number of planes launched by X: " << endl;
+	cout << "Number of planes delayed by X: " << endl;
+}
+void Option2() {
+	//Input and arrival location and a departure location
+	cout << "Average delay time between X and Y: " << endl;
+	cout << "Most common delay issue between X and Y: " << endl;
+	cout << "Percentage of flights delayed between X and Y: " << endl;
+	cout << "Average taxi-out time at airport X: " << endl;
+	cout << "Average taxi-in time at airport Y: " << endl;
+	cout << "Number of planes launched between X and Y: " << endl;
+	cout << "Number of planes delayed between X and Y: " << endl;
+}
+void Option3() {
+	//Input an airport (via three letter identification code)
+	cout << "Average delay time at X: " << endl;
+	cout << "Most common delay issue at X: " << endl;
+	cout << "Most common airline flown at X: " << endl;
+	cout << "Percentage of flights delayed at X: " << endl;
+	cout << "Number of flights to X: " << endl;
+	cout << "Number of flights from X: " << endl;
+}
+void Option4() {
+	//Input type of delay
 
+
+}
+void Option5() {
+	//Input preferred departure time (example being 16:42)
+
+
+}
 int main() {
 	Display();
 	bool valid = false;
@@ -91,9 +127,6 @@ int main() {
 		valid = validate(year, {2016, 2017, 2018});
 	}
 	valid = false;
-	//this is where we will read the data package and store it
-	//perhaps we will also choose what data structure we will choose here
-	// reads in the data differently depending on the chosen data structure?
 	while(!valid)
 	{
 		cout << "Please select a data structure to test: " << endl;
