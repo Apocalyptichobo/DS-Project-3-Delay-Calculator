@@ -79,7 +79,7 @@ bool validate(int input, vector<int> numbers)
 	return false;
 }
 void Option1(){
-	// Input a company (via company identification code)
+	// Input a company (via company identification code) vf or DL (carrier)
 	cout << "Average delay time for X: " << endl;
 	cout << "Most common delay issue for X: " << endl;
 	cout << "Percentage of flights delayed for X: " << endl;
@@ -88,7 +88,7 @@ void Option1(){
 	cout << "Number of planes delayed by X: " << endl;
 }
 void Option2() {
-	//Input and arrival location and a departure location
+	//Input an arrival location and a departure location
 	cout << "Average delay time between X and Y: " << endl;
 	cout << "Most common delay issue between X and Y: " << endl;
 	cout << "Percentage of flights delayed between X and Y: " << endl;
@@ -98,28 +98,40 @@ void Option2() {
 	cout << "Number of planes delayed between X and Y: " << endl;
 }
 void Option3() {
-	//Input an airport (via three letter identification code)
-	cout << "Average delay time at X: " << endl;
-	cout << "Most common delay issue at X: " << endl;
+	//Input an airport (via three letter identification code) Atlanta = ATL (origin)
+	string idCode;
+	cin >> idCode;
+	float avgDelayT = m.airAvgDelay(idCode);
+	cout << "Average delay time at " << idCode << ": " << avgDelayT << endl; 
+	string comD = m.delayType();
+	cout << "Most common delay issue at X: " << comD <<  endl;
 	cout << "Most common airline flown at X: " << endl;
 	cout << "Percentage of flights delayed at X: " << endl;
 	cout << "Number of flights to X: " << endl;
 	cout << "Number of flights from X: " << endl;
 }
 void Option4() {
-	//Input type of delay
-
-
+	//Input type of delay (from a given list of delays)
+	cout << "Average delay time for X: " << endl;
+	cout << "Top five airports with the highest delay time for X: " << endl;
+	cout << "Bottom five airports with the lowest delay time for X: " << endl;
+	cout << "Average travel time for X delay type: " << endl;
+	cout << "The best airport to go to during this year to avoid delay type X is: " << endl;
 }
 void Option5() {
-	//Input preferred departure time (example being 16:42)
-
-
+	//Input preferred departure time (example being 16:42)'
+	cout << "Forwarning -- any time entered is calculated +-5 minutes" << endl;
+	cout << "Average delay time at X time: " << endl;
+	cout << "Most common delay for X time: " << endl;
+	cout << "Airport to fly out of with the least amount of delay time at X time: " << endl;
+	cout << "Airport to not fly out of with most amount of delay time at X time: " << endl;
+	cout << "Chance that your flight will be delayed at X time: " << endl;
 }
 int main() {
 	Display();
 	bool valid = false;
 	int year, structure, menuOption;
+	//user enters year
 	while(!valid)
 	{
 		cout << "Please enter a year between 2016 and 2018: " << endl;
@@ -127,6 +139,7 @@ int main() {
 		valid = validate(year, {2016, 2017, 2018});
 	}
 	valid = false;
+	//user enters which structure to use
 	while(!valid)
 	{
 		cout << "Please select a data structure to test: " << endl;
@@ -136,23 +149,41 @@ int main() {
 		valid = validate(structure, {1,2});
 	}
 	valid = false;
+	//if they chose option 1,map
 	if (structure == 1) {
 		clock_t t = clock();
 		MapS m(year);
-		while (menuOption != 8) {
+		while (menuOption != 7) {
 			MenuSelect();
 			cin >> menuOption;
+			if (menuOption == 1) 
+			{
+				Option1();
+			}
+			else if (menuOption == 2) 
+			{
+				Option2();
+			}
+			else if (menuOption == 3)
+			{
+				Option3();
+			}
+			else if (menuOption == 4) 
+			{
+				Option4();
+			}
 			t = clock() - t;
 			cout << "Run time: " << t / 100 << " seconds" << endl;
 		}
 		return 0;
 	}
-	else if (structure == 2) {
+	else if (structure == 2) { //if they chose option 2, graph
 		clock_t t = clock();
 		GraphS g(year);
-		while (menuOption != 8) {
+		while (menuOption != 7) {
 			MenuSelect();
 			cin >> menuOption;
+
 			t = clock() - t;
 			cout << "Run time: " << t / 100 << " seconds" << endl;
 		}
