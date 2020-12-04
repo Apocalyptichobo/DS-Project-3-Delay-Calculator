@@ -103,10 +103,13 @@ void Option3() {
 	cin >> idCode;
 	float avgDelayT = m.airAvgDelay(idCode);
 	cout << "Average delay time at " << idCode << ": " << avgDelayT << endl; 
-	string comD = m.delayType();
-	cout << "Most common delay issue at X: " << comD <<  endl;
-	cout << "Most common airline flown at X: " << endl;
-	cout << "Percentage of flights delayed at X: " << endl;
+	string comD = m.airDelayType(idCode);
+	cout << "Most common delay issue at " << idCode << ": " << comD <<  endl;
+
+	cout << "Most common airline flown at " << idCode << ": " <<<< endl;
+	float perc = m.airPercentDelayed(idCode);
+	cout << "Percentage of flights delayed at " << idCode <<": " << perc*100 << "%" << endl;
+
 	cout << "Number of flights to X: " << endl;
 	cout << "Number of flights from X: " << endl;
 }

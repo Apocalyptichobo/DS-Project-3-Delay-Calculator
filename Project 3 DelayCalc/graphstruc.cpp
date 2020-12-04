@@ -2,37 +2,18 @@
 
 GraphS::GraphS()
 {
-	row = 1;
-	column = 1;
-	AdjMatrix(1, vector<int>(1));
-	a_matrix = GFlight[1][1];
+	airports.clear();
 }
 
-GraphS::GraphS(int year) 
+void GraphS::readData(int year) 
 {
 
-	map<string, int> airports;
 	int airport_id = 0;
 
 	string dataset;
-	if (year == 2016)
-	{
-		AdjMatrix(313, vector<int>(313));
-		a_matrix = GFlight[313][313];
-		dataset = "Input/2016p.csv";
-	}
-	else if (year == 2017)
-	{
-		AdjMatrix(320, vector<int>(320));
-		a_matrix = GFlight[320][320];
-		dataset = "Input/2017p.csv";
-	}
-	else if (year == 2018)
-	{
-		AdjMatrix(358, vector<int>(358));
-		a_matrix =  GFlight[358][358];
-		dataset = "Input/2018p.csv";
-	}
+	if (year == 2016) dataset = "Input/2016p.csv";
+	else if (year == 2017) dataset = "Input/2017p.csv";
+	else if (year == 2018) dataset = "Input/2018p.csv";
 
 	ifstream file;
 	file.open(dataset, ios_base::in);
@@ -44,6 +25,7 @@ GraphS::GraphS(int year)
 			continue;
 		}
 		GFlight f;
+
 		stringstream ss(r);
 		getline(ss, temp, ','); //skips the numbering
 		getline(ss, temp, ',');
@@ -112,8 +94,141 @@ GraphS::GraphS(int year)
 		f.security_delay = stoi(temp);
 		getline(ss, temp, ',');
 		f.late_aircraft_delay = stoi(temp);
-		AdjMatrix[airports[origin]][airports[destination]];
-		a_matrix[airports[origin]][airports[destination]];
+		
+		data[airports[origin]][airports[destination]] = f;
+
 	}
 	file.close();
 }
+float GraphS::avgDelayTime(string corp)
+{
+	float num_delayed_flights = 0;
+	float total_delay = 0;
+
+	
+	for(int j = 0; j < WIDTH; j++)
+	{
+	    float delay_time = 0;
+
+		if(data[airports[corp]][j].carrier_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].carrier_delay;
+		}
+		if(data[airports[corp]][j].weather_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].weather_delay;
+		}
+		if(data[airports[corp]][j].nas_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].nas_delay;
+		}
+		if(data[airports[corp]][j].security_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].security_delay;
+		}
+		if(data[airports[corp]][j].late_aircraft_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].late_aircraft_delay;
+		}
+		
+		if(delay_time !=0) 
+		{
+			total_delay += delay_time;
+			num_delayed_flights++;
+		}
+
+	}
+}
+
+
+string GraphS::commonDelay(string corp)
+{
+	map<string, int> delay_freqs;
+
+	for(int j = 0; j < WIDTH; j++)
+	{
+
+		if(data[airports[corp]][j].carrier_delay != -1)
+		{
+			delay_freqs["Carrier Delay"] = delay_freqs.count("Carrier Delay") + 1;
+		}
+		if(data[airports[corp]][j].weather_delay != -1)
+		{
+			delay_freqs["Weather Delay"] = delay_freqs.count("Weather Delay") + 1;
+		}
+		if(data[airports[corp]][j].nas_delay != -1)
+		{
+			delay_freqs["nas Delay"] = delay_freqs.count("nas Delay") + 1;
+		}
+		if(data[airports[corp]][j].security_delay != -1)
+		{
+			delay_freqs["Security Delay"] = delay_freqs.count("Security Delay") + 1;
+		}
+		if(data[airports[corp]][j].late_aircraft_delay != -1)
+		{
+			delay_freqs["Late Air Craft Delay"] = delay_freqs.count("Late Air Craft Delay") + 1;
+		}
+
+	}
+
+	int maximum = delay_freqs["Carrier Delay"];
+	string maxString = "Carrier Delay";
+	for(auto it = delay_freqs.end(); it != delay_freqs.end(); it++)
+	{
+		if(it->second > maximum)
+		{
+			maximum = it->second;
+			maxString = it->first;
+
+		}
+
+	}
+
+	return maxString;
+}
+
+float GraphS::avgPercentDelayed(string corp)
+{
+	float num_delayed_flights = 0;
+	float num_flights = 0;
+	
+	for(int j = 0; j < WIDTH; j++)
+	{
+	    float delay_time = 0;
+
+		if(data[airports[corp]][j].date != -1)
+		{
+			delay_time += data[airports[corp]][j].carrier_delay;
+		}
+
+		if(data[airports[corp]][j].carrier_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].carrier_delay;
+		}
+		if(data[airports[corp]][j].weather_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].weather_delay;
+		}
+		if(data[airports[corp]][j].nas_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].nas_delay;
+		}
+		if(data[airports[corp]][j].security_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].security_delay;
+		}
+		if(data[airports[corp]][j].late_aircraft_delay != -1)
+		{
+			delay_time += data[airports[corp]][j].late_aircraft_delay;
+		}
+		
+		if(delay_time !=0) 
+		{
+			total_delay += delay_time;
+			num_delayed_flights++;
+		}
+
+	}
+}
+
+
