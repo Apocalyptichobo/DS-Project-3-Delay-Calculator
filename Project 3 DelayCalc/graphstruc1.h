@@ -11,151 +11,167 @@
 using namespace std;
 
 class GraphS {
-	private:
-		class GFlight
-		{
-			public:
-					int date;
-					string carrier; //company VF DL
-					string flight_number; 
+private:
+    class GFlight
+    {
+    public:
+        int date;
+        string carrier; //company VF DL
+        string flight_number;
 
-					int crs_dept_time;
-					int dept_time;
-					int dep_delay; //delay time
+        int crs_dept_time;
+        int dept_time;
+        int dep_delay; //delay time
 
-					int taxi_out;
-					int wheels_off;
+        int taxi_out;
+        int wheels_off;
 
-					int wheels_on;
-					int taxi_in;
+        int wheels_on;
+        int taxi_in;
 
-					int crs_arr_time;
-					int arr_time;
-					int arr_delay; //second delay time
+        int crs_arr_time;
+        int arr_time;
+        int arr_delay; //second delay time
 
-					int cancelled;
-					string cancel_code;
+        int cancelled;
+        string cancel_code;
 
-					int diverted;
+        int diverted;
 
-					int crs_elapsed_time;
-					int actual_elapsed_time;
+        int crs_elapsed_time;
+        int actual_elapsed_time;
 
-					int air_time;
-					int distance;
-					//delays
-					int carrier_delay; //time delayed
-					int weather_delay; //time delayed
-					int nas_delay;	   //time delayed	
-					int security_delay; //time delayed
-					int late_aircraft_delay; //time delayed
-				
-					GFlight()
-					{
+        int air_time;
+        int distance;
+        //delays
+        int carrier_delay; //time delayed
+        int weather_delay; //time delayed
+        int nas_delay;	   //time delayed
+        int security_delay; //time delayed
+        int late_aircraft_delay; //time delayed
 
-						date = -1;
-						carrier = "";
-						flight_number = "";
+        GFlight()
+        {
 
-						crs_dept_time = -1;
-						dept_time = -1;
-						dep_delay = -1;
+            date = -1;
+            carrier = "";
+            flight_number = "";
 
-						taxi_out = -1;
-						wheels_off = -1;
+            crs_dept_time = -1;
+            dept_time = -1;
+            dep_delay = -1;
 
-						wheels_on = -1;
-						taxi_in = -1;
-						
-						crs_arr_time = -1;
-						arr_time = -1;
-						arr_delay = -1;
+            taxi_out = -1;
+            wheels_off = -1;
 
-						cancelled = -1;
-						cancel_code = "";
+            wheels_on = -1;
+            taxi_in = -1;
 
-						diverted = -1;
-						
-						crs_elapsed_time = -1;
-						actual_elapsed_time = -1;
+            crs_arr_time = -1;
+            arr_time = -1;
+            arr_delay = -1;
 
-						air_time = -1;
-						distance = -1;
+            cancelled = -1;
+            cancel_code = "";
 
-						carrier_delay = -1;
-						weather_delay = -1;
-						nas_delay = -1;
-						security_delay = -1;
-						late_aircraft_delay = -1;
-							
-					}
-					GFlight operator=(const GFlight &obj){
+            diverted = -1;
 
-						GFlight g;
-						
-						g.date = obj.date;
-						g.carrier = obj.carrier; 
-						g.flight_number = obj.flight_number;
+            crs_elapsed_time = -1;
+            actual_elapsed_time = -1;
 
-						g.crs_dept_time = obj.crs_dept_time;
-						g.dept_time = obj.dept_time;
-						g.dep_delay = obj.dep_delay;
+            air_time = -1;
+            distance = -1;
 
-						g.taxi_out = obj.taxi_out;
-						g.wheels_off = obj.wheels_off;
+            carrier_delay = -1;
+            weather_delay = -1;
+            nas_delay = -1;
+            security_delay = -1;
+            late_aircraft_delay = -1;
 
-						g.wheels_on = obj.wheels_on;
-						g.taxi_in   = obj.taxi_in;
+        }
+        GFlight operator=(const GFlight &obj){
 
-						g.crs_arr_time = obj.crs_arr_time;
-						g.arr_time = obj.arr_time;
-						g.arr_delay = obj.arr_delay;	
+            GFlight g;
 
-						g.cancelled = obj.cancelled;
-						g.cancel_code = obj.cancel_code;
+            g.date = obj.date;
+            g.carrier = obj.carrier;
+            g.flight_number = obj.flight_number;
 
-						g.diverted = obj.diverted;
+            g.crs_dept_time = obj.crs_dept_time;
+            g.dept_time = obj.dept_time;
+            g.dep_delay = obj.dep_delay;
 
-						g.crs_elapsed_time = obj.crs_elapsed_time;
-						g.actual_elapsed_time = obj.actual_elapsed_time;
+            g.taxi_out = obj.taxi_out;
+            g.wheels_off = obj.wheels_off;
 
-						g.air_time = obj.air_time;
-						g.distance = obj.distance;
+            g.wheels_on = obj.wheels_on;
+            g.taxi_in   = obj.taxi_in;
 
-							//delays
-						g.carrier_delay = obj.carrier_delay; 
-						g.weather_delay = obj.weather_delay; 
-						g.nas_delay = obj.nas_delay;	   	
-						g.security_delay = obj.security_delay;
-						g.late_aircraft_delay = obj.late_aircraft_delay;
+            g.crs_arr_time = obj.crs_arr_time;
+            g.arr_time = obj.arr_time;
+            g.arr_delay = obj.arr_delay;
 
-						return g;
-					}
-			};
-		GFlight data[WIDTH][WIDTH];
-		map<string, int> airports;
-	public:
-		GraphS(); //DONE bih
-		//Option 1
-		void readData(int year); //probably DONE bih
-		float avgDelayTime(string corp); //DONE bih
-		string commonDelay(string corp); //DONE bih
-		float airPercentDelayed(string corp); // in progress bih
-		int noPlanesFlown(string corp);
-		int noPlanesDelayed(string corp);
+            g.cancelled = obj.cancelled;
+            g.cancel_code = obj.cancel_code;
 
+            g.diverted = obj.diverted;
 
+            g.crs_elapsed_time = obj.crs_elapsed_time;
+            g.actual_elapsed_time = obj.actual_elapsed_time;
 
+            g.air_time = obj.air_time;
+            g.distance = obj.distance;
 
+            //delays
+            g.carrier_delay = obj.carrier_delay;
+            g.weather_delay = obj.weather_delay;
+            g.nas_delay = obj.nas_delay;
+            g.security_delay = obj.security_delay;
+            g.late_aircraft_delay = obj.late_aircraft_delay;
 
+            return g;
+        }
+    };
+    vector<GFlight> data[WIDTH][WIDTH];
+    map<string, int> airports;
+public:
+    GraphS(); //DONE
+    void readData(int year); //DONE
 
-	/*cout << "Average delay time for X: " << endl;
-	cout << "Most common delay issue for X: " << endl;
-	cout << "Percentage of flights delayed for X: " << endl;
-	cout << "Average travel time for X: " << endl;
-	cout << "Number of planes launched by X: " << endl;
-	cout << "Number of planes delayed by X: " << endl;*/
+    //Option 3
+    float avgDelayTime(string& corp); //DONE
+    string commonDelay(string& corp); //DONE
+    string commonAirline(string& corp); //DONE
+    float airPercentDelayed(string& corp); //DONE
+    int fromX(string& corp); // DONE
+    int toX(string&corp); //DONE
+
+    //Option 2
+    float avgDelayTimeXY(string& corp1, string& corp2); //DONE
+    string commonDelayXY(string& corp1, string& corp2); //DONE
+    float airPercentDelayedXY(string& corp1, string& corp2); //DONE
+    float avgTaxiOutTime(string& corp); //DONE
+    int noPlanesFlown(string& corp1, string& corp2); //DONE
+    int noPlanesDelayed(string& corp1, string& corp2); //DONE
 
 
+
+    int noPlanesDelayed(string& corp); //DONE
+
+    //Option 1
+    /*cout << "Average delay time for X: " << endl;
+    avgDelayTimeCorp <-
+    cout << "Most common delay issue for X: " << endl;
+    cout << "Percentage of flights delayed for X: " << endl;
+    cout << "Average travel time for X: " << endl;
+    cout << "Number of planes launched by X: " << endl;
+    cout << "Number of planes delayed by X: " << endl;*/
+
+    float avgDelayTimeCorp(string& corp); //DONE
+    string commonDelayCorp(string& corp); // IP
+    float airPercentDelayedCorp(string& corp);
+    float travelTime(string& corp);
+    float noPlanesFlownCorp(string& corp);
+    float noPlanesDelayedCorp(string& corp);
 
 };
