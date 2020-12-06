@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -78,58 +79,6 @@ bool validate(int input, vector<int> numbers)
 	cout << "Invalid input" << endl;
 	return false;
 }
-void Option1(){
-	// Input a company (via company identification code) vf or DL (carrier)
-	cout << "Average delay time for X: " << endl;
-	cout << "Most common delay issue for X: " << endl;
-	cout << "Percentage of flights delayed for X: " << endl;
-	cout << "Average travel time for X: " << endl;
-	cout << "Number of planes launched by X: " << endl;
-	cout << "Number of planes delayed by X: " << endl;
-}
-void Option2() {
-	//Input an arrival location and a departure location
-	cout << "Average delay time between X and Y: " << endl;
-	cout << "Most common delay issue between X and Y: " << endl;
-	cout << "Percentage of flights delayed between X and Y: " << endl;
-	cout << "Average taxi-out time at airport X: " << endl;
-	cout << "Average taxi-in time at airport Y: " << endl;
-	cout << "Number of planes launched between X and Y: " << endl;
-	cout << "Number of planes delayed between X and Y: " << endl;
-}
-void Option3() {
-	//Input an airport (via three letter identification code) Atlanta = ATL (origin)
-	string idCode;
-	cin >> idCode;
-	float avgDelayT = m.airAvgDelay(idCode);
-	cout << "Average delay time at " << idCode << ": " << avgDelayT << endl; 
-	string comD = m.airDelayType(idCode);
-	cout << "Most common delay issue at " << idCode << ": " << comD <<  endl;
-
-	cout << "Most common airline flown at " << idCode << ": " <<<< endl;
-	float perc = m.airPercentDelayed(idCode);
-	cout << "Percentage of flights delayed at " << idCode <<": " << perc*100 << "%" << endl;
-
-	cout << "Number of flights to X: " << endl;
-	cout << "Number of flights from X: " << endl;
-}
-void Option4() {
-	//Input type of delay (from a given list of delays)
-	cout << "Average delay time for X: " << endl;
-	cout << "Top five airports with the highest delay time for X: " << endl;
-	cout << "Bottom five airports with the lowest delay time for X: " << endl;
-	cout << "Average travel time for X delay type: " << endl;
-	cout << "The best airport to go to during this year to avoid delay type X is: " << endl;
-}
-void Option5() {
-	//Input preferred departure time (example being 16:42)'
-	cout << "Forwarning -- any time entered is calculated +-5 minutes" << endl;
-	cout << "Average delay time at X time: " << endl;
-	cout << "Most common delay for X time: " << endl;
-	cout << "Airport to fly out of with the least amount of delay time at X time: " << endl;
-	cout << "Airport to not fly out of with most amount of delay time at X time: " << endl;
-	cout << "Chance that your flight will be delayed at X time: " << endl;
-}
 int main() {
 	Display();
 	bool valid = false;
@@ -157,38 +106,198 @@ int main() {
 		clock_t t = clock();
 		MapS m(year);
 		while (menuOption != 7) {
+			string input;
 			MenuSelect();
 			cin >> menuOption;
+			bool help = true;
 			if (menuOption == 1) 
 			{
-				Option1();
+				while (help) {
+					cout << "Input a company (via company two letter identification code)" << endl;
+					cout << "Example: DL" << endl;
+					cout << "Type 'help' for a list of company identification codes" << endl;
+					cin >> input;
+					if (input == "help") {
+						//make list
+
+					}
+					else {
+						m.Option1(input);
+						help = false;
+						t = clock() - t;
+						cout << "Run time: " << t / 100 << " seconds" << endl;
+					}
+				}
 			}
 			else if (menuOption == 2) 
 			{
-				Option2();
+				while (help) {
+					cout << "Input an origin airport and destination airport (via airport three letter identification code)" << endl;
+					cout << "Example: ATL" << endl;
+					cout << "Type 'help' for a list of airport identification codes" << endl;
+					cin >> input;
+					if (input == "help") {
+						//make list
+
+					}
+					else {
+						m.Option2(input);
+						help = false;
+						t = clock() - t;
+						cout << "Run time: " << t / 100 << " seconds" << endl;
+					}
+				}
 			}
 			else if (menuOption == 3)
 			{
-				Option3();
+				while (help) {
+					cout << "Input an airport (via three letter identification code)" << endl;
+					cout << "Example: ATL" << endl;
+					cout << "Type 'help' for a list of three letter identification codes" << endl;
+					cin >> input;
+					if (input == "help") {
+						//make list
+
+					}
+					else {
+						m.Option3(input);
+						help = false;
+						t = clock() - t;
+						cout << "Run time: " << t / 100 << " seconds" << endl;
+					}
+				}
 			}
 			else if (menuOption == 4) 
 			{
-				Option4();
+				while (help) {
+					cout << "Input type of delay (from a given list of delays)" << endl;
+					cout << "Example: CARRIER" << endl;
+					cout << "Type 'help' for a list of possible delays" << endl;
+					cin >> input;
+					if (input == "help") {
+						//make list
+
+					}
+					else {
+						m.Option4(input);
+						help = false;
+						t = clock() - t;
+						cout << "Run time: " << t / 100 << " seconds" << endl;
+					}
+				}
 			}
-			t = clock() - t;
-			cout << "Run time: " << t / 100 << " seconds" << endl;
+			else if (menuOption == 5)
+			{
+				cout << "Input a departure time (in military standard time)" << endl;
+				cout << "Example: 0800" << endl;
+				cout << "Times can be between 0000 and 2359" << endl;
+				cin >> input;
+				m.Option5(input); //check to see if the input is correct/numeric
+				t = clock() - t;
+				cout << "Run time: " << t / 100 << " seconds" << endl;
+			}
+			else
+			{
+				cout << "Invalid input" << endl;
+			}
 		}
 		return 0;
 	}
 	else if (structure == 2) { //if they chose option 2, graph
 		clock_t t = clock();
-		GraphS g(year);
+		GraphS g;
+		g.readData(year);
 		while (menuOption != 7) {
+			string input;
 			MenuSelect();
 			cin >> menuOption;
+			bool help = true;
+			if (menuOption == 1)
+			{
+				while (help) {
+					cout << "Input a company (via company two letter identification code)" << endl;
+					cout << "Example: DL" << endl;
+					cout << "Type 'help' for a list of company identification codes" << endl;
+					cin >> input;
+					if (input == "help") {
+						//make list
 
-			t = clock() - t;
-			cout << "Run time: " << t / 100 << " seconds" << endl;
+					}
+					else {
+						g.Option1(input);
+						help = false;
+						t = clock() - t;
+						cout << "Run time: " << t / 100 << " seconds" << endl;
+					}
+				}
+			}
+			else if (menuOption == 2)
+			{
+				while (help) {
+					cout << "Input an origin airport and destination airport (via airport three letter identification code)" << endl;
+					cout << "Example: ATL" << endl;
+					cout << "Type 'help' for a list of airport identification codes" << endl;
+					cin >> input;
+					if (input == "help") {
+						//make list
+
+					}
+					else {
+						g.Option2(input);
+						help = false;
+						t = clock() - t;
+						cout << "Run time: " << t / 100 << " seconds" << endl;
+					}
+				}
+			}
+			else if (menuOption == 3)
+			{
+				while (help) {
+					cout << "Input an airport (via three letter identification code)" << endl;
+					cout << "Example: ATL" << endl;
+					cout << "Type 'help' for a list of three letter identification codes" << endl;
+					cin >> input;
+					if (input == "help") {
+						//make list
+
+					}
+					else {
+						g.Option3(input);
+						help = false;
+						t = clock() - t;
+						cout << "Run time: " << t / 100 << " seconds" << endl;
+					}
+				}
+			}
+			else if (menuOption == 4)
+			{
+				while (help) {
+					cout << "Input type of delay (from a given list of delays)" << endl;
+					cout << "Example: CARRIER" << endl;
+					cout << "Type 'help' for a list of possible delays" << endl;
+					cin >> input;
+					if (input == "help") {
+						//make list
+
+					}
+					else {
+						g.Option4(input);
+						help = false;
+						t = clock() - t;
+						cout << "Run time: " << t / 100 << " seconds" << endl;
+					}
+				}
+			}
+			else if (menuOption == 5)
+			{
+				cout << "Input a departure time (in military standard time)" << endl;
+				cout << "Example: 0800" << endl;
+				cout << "Times can be between 0000 and 2359" << endl;
+				cin >> input;
+				g.Option5(input); //check to see if the input is correct/numeric
+				t = clock() - t;
+				cout << "Run time: " << t / 100 << " seconds" << endl;
+			}
 		}
 		return 0;
 	}

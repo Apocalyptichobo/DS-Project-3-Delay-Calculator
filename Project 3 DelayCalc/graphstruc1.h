@@ -89,7 +89,7 @@ private:
             late_aircraft_delay = -1;
 
         }
-        GFlight operator=(const GFlight &obj){
+        GFlight operator=(const GFlight& obj) {
 
             GFlight g;
 
@@ -105,7 +105,7 @@ private:
             g.wheels_off = obj.wheels_off;
 
             g.wheels_on = obj.wheels_on;
-            g.taxi_in   = obj.taxi_in;
+            g.taxi_in = obj.taxi_in;
 
             g.crs_arr_time = obj.crs_arr_time;
             g.arr_time = obj.arr_time;
@@ -137,6 +137,14 @@ private:
 public:
     GraphS(); //DONE
     void readData(int year); //DONE
+    void Option1(string input);
+    void Option2(string input);
+    void Option3(string input);
+    void Option4(string input);
+    void Option5(string input);
+
+	//Helper for the min and max
+    string minMax(map<string, int> freqs, string null_display); //DONE
 
     //Option 3
     float avgDelayTime(string& corp); //DONE
@@ -144,7 +152,7 @@ public:
     string commonAirline(string& corp); //DONE
     float airPercentDelayed(string& corp); //DONE
     int fromX(string& corp); // DONE
-    int toX(string&corp); //DONE
+    int toX(string& corp); //DONE
 
     //Option 2
     float avgDelayTimeXY(string& corp1, string& corp2); //DONE
@@ -155,23 +163,32 @@ public:
     int noPlanesDelayed(string& corp1, string& corp2); //DONE
 
 
-
+	//Option 1
     int noPlanesDelayed(string& corp); //DONE
-
-    //Option 1
-    /*cout << "Average delay time for X: " << endl;
-    avgDelayTimeCorp <-
-    cout << "Most common delay issue for X: " << endl;
-    cout << "Percentage of flights delayed for X: " << endl;
-    cout << "Average travel time for X: " << endl;
-    cout << "Number of planes launched by X: " << endl;
-    cout << "Number of planes delayed by X: " << endl;*/
-
     float avgDelayTimeCorp(string& corp); //DONE
-    string commonDelayCorp(string& corp); // IP
-    float airPercentDelayedCorp(string& corp);
-    float travelTime(string& corp);
-    float noPlanesFlownCorp(string& corp);
-    float noPlanesDelayedCorp(string& corp);
+    string commonDelayCorp(string& corp); // DONE
+    float airPercentDelayedCorp(string& corp); //DONE
+    float avgTravelTime(string& corp); //DONE
+    int noPlanesFlownCorp(string& corp); //DONE
+    int noPlanesDelayedCorp(string& corp); //DONE
 
-};
+
+    //Option 4 - delays
+    // CARRIER
+    // WEATHER
+    // NAS
+    // SECURITY
+    // LATE_AIRCRAFT
+
+    float avgDelayTimeWhenDelayed(string& delayType); //DONE
+    vector<string> topForDelays(string& delayType, int how_many); //DONE
+	vector<string> bottomForDelays(string& delayType, int how_many); //DONE
+    float avgTravelTimeWhenDelayed(string& delayType); //DONE
+    string bestAirport(string search); //best airport to travel with given delay
+
+	//Option 5 
+    float averageDelayTimeDay(int time_of_day); //DONE
+    string commonDelayDay(int time_of_day); //DONE
+    string leastMostDelayDay(int time_of_day, int least_or_most); //DONE
+    float probDelayDay(int time_of_day); //DONE
+};	
