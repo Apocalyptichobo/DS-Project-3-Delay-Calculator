@@ -1,12 +1,13 @@
 #pragma once
 #include <iostream>
-#include <istream>
 #include <string>
 #include <fstream>
-#include <vector>
-#include <map>
+#include <istream>
 #include <sstream>
+#include <vector>
 #include <cmath>
+#include <map>
+
 using namespace std;
 
 class MapS {
@@ -54,13 +55,14 @@ private:
 
 public:
 	map<int, Flight> data; //key first line, value is the flight data
+	//map<string, string> ID;
 	MapS();
 	MapS(int year);
-	void Option1(string input);
-	void Option2(string input);
-	void Option3(string input);
-	void Option4(string input);
-	void Option5(string input);
+	void Option1(string input);//done
+	void Option2(string input, string input2);//done
+	void Option3(string input);//done
+	void Option4(string input);//done
+	void Option5(string input);//done
 	//company option 1 (DONE)
 	int comAvgDelay(string search); //average delay time for company (done)
 	string comDelayType(string search); //most common delay type for company (done)
@@ -88,11 +90,9 @@ public:
 
 	//type of delay option 4
 	int avgDelay(string search); //average delay time for given delay
-	pair<vector<string>, vector<string>> airportHighLow(string search);
-	/*pair of vectors that contain the highest and lowest airport delay time
-	first vector will have the highest, second will have the lowest*/
+	//pair<vector<string>, vector<string>> airportHighLow(string search);
 	int avgTravelTime(string search); //average travel time for given delay
-	string bestAirport(string search); //best airport to travel with given delay
+	//string bestAirport(string search); //best airport to travel with given delay
 	//Option 4 - delays
 	// CARRIER
 	// WEATHER
@@ -105,5 +105,34 @@ public:
 	string timeDelayType(string time); //find the most common type of delay for given time (done)
 	pair<vector<string>, vector<string>> airportDelayTimes(string time); //finds the airports with the best and worst delay time for the given time, first is best second is worst (done)
 	float timePercentDelayed(string time); //percentage delayed at given time (done)
+
+	//	//helper functions
+	//bool criterionAsc(pair<string, int>& pair1, pair<string, int>& pair2)
+	//{
+	//	return pair1.second < pair2.second;
+	//}
+	//bool criterionDesc(pair<string, int>& pair1, pair<string, int>& pair2)
+	//{
+	//	return pair2.second > pair2.second;
+	//}
+	//void SortbyValue(map<string, int>& Map, string s)
+	//{
+	//	vector<pair<string, int>> v;
+	//
+	//	//copy key value pairs
+	//	for (auto& it : Map)
+	//	{
+	//		v.push_back(it);
+	//	}
+	//	if (s == "Ascending")
+	//	{
+	//		sort(Map.begin(), Map.end(), criterionAsc);
+	//	}
+	//	else
+	//	{
+	//		sort(Map.begin(), Map.end(), criterionDesc);
+	//	}
+	//
+	//}
 };
 

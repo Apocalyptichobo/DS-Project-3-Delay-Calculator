@@ -71,7 +71,7 @@ void MenuSelect() {
 }
 bool validate(int input, vector<int> numbers)
 {
-	for(int i = 0; i < numbers.size(); i++)
+	for(unsigned int i = 0; i < numbers.size(); i++)
 	{
 		if(input == numbers[i])
 			return true;
@@ -82,7 +82,7 @@ bool validate(int input, vector<int> numbers)
 int main() {
 	Display();
 	bool valid = false;
-	int year, structure, menuOption;
+	int year, structure{};
 	//user enters year
 	while(!valid)
 	{
@@ -103,10 +103,11 @@ int main() {
 	valid = false;
 	//if they chose option 1,map
 	if (structure == 1) {
+		int menuOption = 0;
 		clock_t t = clock();
 		MapS m(year);
 		while (menuOption != 7) {
-			string input;
+			string input, input2;
 			MenuSelect();
 			cin >> menuOption;
 			bool help = true;
@@ -118,8 +119,7 @@ int main() {
 					cout << "Type 'help' for a list of company identification codes" << endl;
 					cin >> input;
 					if (input == "help") {
-						//make list
-
+						//help
 					}
 					else {
 						m.Option1(input);
@@ -135,13 +135,21 @@ int main() {
 					cout << "Input an origin airport and destination airport (via airport three letter identification code)" << endl;
 					cout << "Example: ATL" << endl;
 					cout << "Type 'help' for a list of airport identification codes" << endl;
+					cout << "Origin: ";
 					cin >> input;
 					if (input == "help") {
 						//make list
 
 					}
+					cout << endl;
+					cout << "Destination: ";
+					cin >> input2;
+					if (input2 == "help") {
+						//make list
+
+					}
 					else {
-						m.Option2(input);
+						m.Option2(input, input2);
 						help = false;
 						t = clock() - t;
 						cout << "Run time: " << t / 100 << " seconds" << endl;
@@ -201,14 +209,14 @@ int main() {
 				cout << "Invalid input" << endl;
 			}
 		}
-		return 0;
 	}
 	else if (structure == 2) { //if they chose option 2, graph
+		int menuOption = 0;
 		clock_t t = clock();
 		GraphS g;
 		g.readData(year);
 		while (menuOption != 7) {
-			string input;
+			string input, input2;
 			MenuSelect();
 			cin >> menuOption;
 			bool help = true;
@@ -242,8 +250,15 @@ int main() {
 						//make list
 
 					}
+					cout << endl;
+					cout << "Destination: ";
+					cin >> input2;
+					if (input2 == "help") {
+						//make list
+
+					}
 					else {
-						g.Option2(input);
+						g.Option2(input, input2);
 						help = false;
 						t = clock() - t;
 						cout << "Run time: " << t / 100 << " seconds" << endl;
@@ -299,6 +314,6 @@ int main() {
 				cout << "Run time: " << t / 100 << " seconds" << endl;
 			}
 		}
-		return 0;
 	}
+	return 0;
 }
