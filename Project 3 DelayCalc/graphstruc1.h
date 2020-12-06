@@ -6,7 +6,10 @@
 #include <istream>
 #include <sstream>
 #include <vector>
+#include <cmath>
 #include <map>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -18,6 +21,9 @@ private:
         int date;
         string carrier; //company VF DL
         string flight_number;
+
+        string origin;
+        string destination;
 
         int crs_dept_time;
         int dept_time;
@@ -56,6 +62,9 @@ private:
             date = -1;
             carrier = "";
             flight_number = "";
+
+            origin = "";
+            destination = "";
 
             crs_dept_time = -1;
             dept_time = -1;
@@ -138,39 +147,98 @@ public:
     GraphS(); //DONE
     void readData(int year); //DONE
     void Option1(string input);
-    void Option2(string input);
+    void Option2(string input, string input2);
     void Option3(string input);
     void Option4(string input);
     void Option5(string input);
 
 	//Helper for the min and max
-    string minMax(map<string, int> freqs, string null_display); //DONE
+    string max_string(map<string, int> freqs, string null_display)
+	{
+		int maximum = 0;
+		string maxString = null_display;
+		for (auto it = freqs.end(); it != freqs.end(); it++)
+		{
+			if (it->second > maximum)
+			{
+				maximum = it->second;
+				maxString = it->first;
 
-    //Option 3
-    float avgDelayTime(string& corp); //DONE
-    string commonDelay(string& corp); //DONE
-    string commonAirline(string& corp); //DONE
-    float airPercentDelayed(string& corp); //DONE
-    int fromX(string& corp); // DONE
-    int toX(string& corp); //DONE
+			}
 
-    //Option 2
-    float avgDelayTimeXY(string& corp1, string& corp2); //DONE
-    string commonDelayXY(string& corp1, string& corp2); //DONE
-    float airPercentDelayedXY(string& corp1, string& corp2); //DONE
-    float avgTaxiOutTime(string& corp); //DONE
-    int noPlanesFlown(string& corp1, string& corp2); //DONE
-    int noPlanesDelayed(string& corp1, string& corp2); //DONE
+		}
+    
+		return maxString;
+	}
+    vector<string> fillVector(map<string, int> m, int how_many)
+    {
+		int counter = how_many;
+        vector<string>v;
 
+		for(auto it =m.begin(); it != m.end(); it++)
+		{
+			v.push_back(it->first);
+			counter--;
+			if (counter == 0) return v;
+		
+		}
+
+	}
+	////Helpers for sorting by value
+	//bool criterionAsc(pair<string,int>& pair1, pair<string,int>&pair2)
+    //{
+    //    return pair1.second < pair2.second;
+	//}
+	//bool criterionDesc(pair<string,int>& pair1, pair<string,int>&pair2)
+    //{
+    //    return pair2.second > pair2.second;
+	//}
+    //
+	//void SortbyValue(map<string,int> Map, string& s)
+	//{
+	//	vector<pair<string,int>> v;
+    //
+	//	//copy key value pairs
+    //    for (auto it : Map)
+    //    {
+    //        v.push_back(it);
+    //    }
+	//	if (s == "Ascending") 
+	//	{
+	//		sort(Map.begin(), Map.end(), criterionAsc);
+	//	}
+	//	else 
+	//	{
+	//		sort(Map.begin(), Map.end(), criterionDesc);
+	//	}
+    //
+	//}
 
 	//Option 1
-    int noPlanesDelayed(string& corp); //DONE
-    float avgDelayTimeCorp(string& corp); //DONE
-    string commonDelayCorp(string& corp); // DONE
-    float airPercentDelayedCorp(string& corp); //DONE
-    float avgTravelTime(string& corp); //DONE
-    int noPlanesFlownCorp(string& corp); //DONE
-    int noPlanesDelayedCorp(string& corp); //DONE
+    float comAvgDelay(string& corp); //DONE, comAvgDelay
+    string comDelayType(string& corp); // DONE, comDelayType
+    float comPerDelayed(string& corp); //DONE, comPerDelayed
+    float comAvgTravelTime(string& corp); //DONE, comAvgTravelTime
+    int comNumLaunched(string& corp); //DONE, comNumLaunched
+    int comNumDelayed(string& corp); //DONE, comNumDelayed
+
+	//Option 2
+    float ADAvgDelay(string& airpt1, string& airpt2); //DONE, ADAvgDelay
+    string ADDelayType(string& airpt1, string& airpt2); //DONE, ADDelayType
+    float ADPerDelayed(string& airpt1, string& airpt2); //DONE, ADPerDelayed
+    float avgTaxiTime(string& airpt1, string& airpt2, int in_or_out);
+    int ADNumLaunched(string& airpt1, string& airpt2); //DONE, ADNumLaunched
+    int ADNumDelayed(string& airpt1, string& airpt2); //DONE, ADNumDelayed
+
+    //Option 3
+    float airAvgDelay(string& airpt); //DONE, airAvgDelay
+    string airDelayType(string& airpt); //DONE, airDelayType
+    string airCarrier(string& airpt); //DONE, airCarrier
+    float airPercentDelayed(string& airpt); //DONE, airPercentDelayed
+    int airNumFlownTo(string& aiprt); //DONE, airNumFlown
+	int airNumFlownFrom(string& airpt); // DONE, airNumFlown
+    int airNumDelayed(string& airpt);
+    float airAvgTravelTime(string& airpt);
 
 
     //Option 4 - delays
@@ -179,16 +247,14 @@ public:
     // NAS
     // SECURITY
     // LATE_AIRCRAFT
-
-    float avgDelayTimeWhenDelayed(string& delayType); //DONE
-    vector<string> topForDelays(string& delayType, int how_many); //DONE
-	vector<string> bottomForDelays(string& delayType, int how_many); //DONE
-    float avgTravelTimeWhenDelayed(string& delayType); //DONE
-    string bestAirport(string search); //best airport to travel with given delay
+    float avgDelay(string& delayType); //DONE, avgDelay
+    //pair<vector<string>,vector<string>> airportHighLow(string& delayType, int how_many); //airportHighLow
+    float avgTravelTime(string& delayType); //DONE, avgTravelTime
+    //string bestAirport(string search); //, bestAirport
 
 	//Option 5 
-    float averageDelayTimeDay(int time_of_day); //DONE
-    string commonDelayDay(int time_of_day); //DONE
-    string leastMostDelayDay(int time_of_day, int least_or_most); //DONE
-    float probDelayDay(int time_of_day); //DONE
+    float timeAvgDelay(int time_of_day); //DONE, timeAvgDelay
+    string timeDelayType(int time_of_day); //DONE, timeDelayType
+    string airportDelayTimes(int time_of_day, int least_or_most); //DONE, airportDelayTimes
+    float timePercentDelayed(int time_of_day); //DONE, timePercentDelayed
 };	
