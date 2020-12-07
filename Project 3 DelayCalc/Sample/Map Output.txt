@@ -28,7 +28,7 @@ Average travel time for "DL": 121 minutes
 Number of planes delayed by "DL": 9543
 Number of planes launched by "DL": 69600
 Percentage of flights delayed for "DL": %13.7112
-Run time: 5.64 seconds
+Run time: 5.603 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -51,7 +51,7 @@ Average taxi-in time between "ATL" and "GNV": 18 minutes
 Number of planes delayed from "ATL" to "GNV": 44
 Number of planes launched from "ATL" to "GNV": 190
 Percentage of flights delayed between "ATL" and "GNV": %23.1579
-Run time: 6.704 seconds
+Run time: 6.526 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -74,7 +74,7 @@ Number of flights to "ATL": 29656
 Number of flights from "ATL": 29615
 Number of flights delayed at "ATL": 4813
 Percentage of flights delayed at "ATL": %16.2519
-Run time: 7.094 seconds
+Run time: 6.883 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -91,7 +91,7 @@ Type 'help' for a list of possible delays
 CARRIER
 Average delay time for CARRIER delay: 43 minutes
 Average travel time for CARRIER delay: 111 minutes
-Run time: 1.875 seconds
+Run time: 1.815 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -111,4 +111,4 @@ Most common delay for 0800 time: Weather Delay
 Airport to fly out of with the least amount of delay time at 0800 time: "JFK"
 Airport to not fly out of with most amount of delay time at 0800 time: "SLC"
 Chance that your flight will be delayed at 0800 time: %15.526
-Run time: 3.399 seconds
+Run time: 3.303 seconds

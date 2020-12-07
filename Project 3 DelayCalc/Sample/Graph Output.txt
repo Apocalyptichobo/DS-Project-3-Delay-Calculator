@@ -51,7 +51,7 @@ Average taxi-in time between "ATL" and "GNV": 18 minutes
 Number of planes delayed from "ATL" to "GNV": 33
 Number of planes launched from "ATL" to "GNV": 190
 Percentage of flights delayed between "ATL" and "GNV": %23.1579
-Run time: 0.056 seconds
+Run time: 0.054 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -68,13 +68,13 @@ Type 'help' for a list of valid three letter identification codes
 ATL
 Average delay time at "ATL": 0 minutes
 Most common delay issue at "ATL": Carrier Delay
-Most common airline flown at "ATL": "9E"
+Most common airline flown at "ATL": "DL"
 Average travel time at "ATL": 94 minutes
 Number of flights to "ATL": 29656
 Number of flights from "ATL": 29615
 Number of flights delayed at "ATL": 4813
 Percentage of flights delayed at "ATL": %16.2519
-Run time: 3.693 seconds
+Run time: 3.422 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -91,7 +91,7 @@ Type 'help' for a list of possible delays
 CARRIER
 Average delay time for CARRIER delay: 43 minutes
 Average travel time for CARRIER delay: 111 minutes
-Run time: 0.302 seconds
+Run time: 0.299 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -106,9 +106,9 @@ Input a departure time (in military standard time)
 Example: 0800
 Times can be between 0000 and 2359
 0800
-Average delay time at 0800 time: 1 minutes
+Average delay time at 0800 time: 6 minutes
 Most common delay for 0800 time: Nas Delay
-Airport to fly out of with the least amount of delay time at 0800 time: "JFK"
-Airport to not fly out of with most amount of delay time at 0800 time: "SEA"
-Chance that your flight will be delayed at 0800 time: %13.9073
-Run time: 0.232 seconds
+Airport to fly out of with the least amount of delay time at 0800 time: "DTW"
+Airport to not fly out of with most amount of delay time at 0800 time: "SLC"
+Chance that your flight will be delayed at 0800 time: %15.526
+Run time: 0.286 seconds
