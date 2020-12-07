@@ -7,17 +7,10 @@ MapS::MapS()
 {
 
 }
-MapS::MapS(int year, int h)
+MapS::MapS(string d)
 {
-	string dataset;
-	if (year == 2016 && h == 1) dataset = "Input/2016p1.csv";
-	else if (year == 2016 && h == 2) dataset = "Input/2016p2.csv";
-	else if (year == 2017 && h == 1) dataset = "Input/2017p1.csv";
-	else if (year == 2017 && h == 2) dataset = "Input/2017p2.csv";
-	else if (year == 2018 && h == 1) dataset = "Input/2018p1.csv";
-	else if (year == 2018 && h == 2) dataset = "Input/air2018p_jan.csv";
 	ifstream file;
-	file.open(dataset, ios_base::in);
+	file.open(d, ios_base::in);
 	bool first = true;
 	string r, t, temp, num; //each row
 	while (getline(file, r)) {
@@ -29,7 +22,7 @@ MapS::MapS(int year, int h)
 		stringstream ss(r);
 		getline(ss, temp, ',');
 		num = temp;
-		getline(ss, temp, ',');//empty
+		//getline(ss, temp, ',');//empty
 		//getline(ss, temp, ',');
 		//f.date = temp;
 		getline(ss, temp, ',');
@@ -162,7 +155,7 @@ void MapS::Option5(string& input)
 int MapS::comAvgDelay(string& search)
 {
 	int avgDelayT = 0;
-	int count = 0;
+	int count = 1;
 	for (auto iter = data.begin(); iter != data.end(); iter++)
 	{
 		if (iter->second.carrier == search)

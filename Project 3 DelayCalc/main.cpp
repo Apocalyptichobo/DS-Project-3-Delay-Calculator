@@ -9,6 +9,7 @@
 #include <sstream>
 #include <ctime>
 #include <random>
+#include <utility>
 #include "graphstruc1.h"
 #include "mapstruc.h"
 using namespace std;
@@ -69,7 +70,7 @@ void MenuSelect() {
 	cout << "7. Exit" << endl;
 	cout << endl;
 }
-bool validate(int input, vector<int> numbers)
+bool validateN(int input, vector<int> numbers)
 {
 	for(unsigned int i = 0; i < numbers.size(); i++)
 	{
@@ -79,23 +80,49 @@ bool validate(int input, vector<int> numbers)
 	cout << "Invalid input" << endl;
 	return false;
 }
+bool validateS(string input, vector<string> strings)
+{
+	for (unsigned int i = 0; i < strings.size(); i++)
+	{
+		if (input == strings[i])
+			return true;
+	}
+	cout << "Invalid input" << endl;
+	return false;
+}
 int main() {
 	Display();
 	bool valid = false;
-	int year, s, structure{};
+	int year, structure{};
+	string s;
+	map<pair<int, string>, string> set{ {make_pair(2016, "JAN"), "Input/air2016p_jan.csv"}, {make_pair(2016, "FEB"), "Input/air2016p_feb.csv"}, {make_pair(2016, "MAR"), "Input/air2016p_mar.csv"} ,
+	{make_pair(2016, "APR"), "Input/air2016p_apr.csv"} , {make_pair(2016, "MAY"), "Input/air2016p_may.csv"} , {make_pair(2016, "JUN"), "Input/air2016p_june.csv"} ,
+	{make_pair(2016, "JUL"), "Input/air2016p_july.csv"} , {make_pair(2016,"AUG"), "Input/air2016p_aug.csv"} , {make_pair(2016, "SEP"), "Input/air2016p_sep.csv"} ,
+	{make_pair(2016, "OCT"), "Input/air2016p_oct.csv"} , {make_pair(2016, "NOV"), "Input/air2016p_nov.csv"} , {make_pair(2016, "DEC"), "Input/air2016p_dec.csv"} ,
+	{make_pair(2017, "JAN"), "Input/air2017p_jan.csv"} , {make_pair(2017, "FEB"), "Input/air2017p_feb.csv"} , {make_pair(2017, "MAR"), "Input/air2017p_mar.csv"} ,
+	{make_pair(2017, "APR"), "Input/air2017p_apr.csv"} , {make_pair(2017, "MAY"), "Input/air2017p_may.csv"} , {make_pair(2017, "JUN"), "Input/air2017p_june.csv"} ,
+	{make_pair(2017, "JUL"), "Input/air2017p_july.csv"} , {make_pair(2017, "AUG"), "Input/air2017p_aug.csv"} , {make_pair(2017, "SEP"), "Input/air2017p_sep.csv"} ,
+	{make_pair(2017, "OCT"), "Input/air2017p_oct.csv"} , {make_pair(2017, "NOV"), "Input/air2017p_nov.csv"} , {make_pair(2017, "DEC"), "Input/air2017p_dec.csv"} ,
+	{make_pair(2018, "JAN"), "Input/air2018p_jan.csv"} , {make_pair(2018, "FEB"), "Input/air2018p_jan.csv"} , {make_pair(2018, "MAR"), "Input/air2018p_mar.csv"} ,
+	{make_pair(2018, "APR"), "Input/air2018p_apr.csv"} , {make_pair(2018, "MAY"), "Input/air2018p_may.csv"} , {make_pair(2018, "JUN"), "Input/air2016p_june.csv"} ,
+	{make_pair(2018, "JUL"), "Input/air2018p_july.csv"} , {make_pair(2018, "AUG"), "Input/air2018p_aug.csv"} , {make_pair(2018, "SEP"), "Input/air2018p_sep.csv"} ,
+	{make_pair(2018, "OCT"), "Input/air2018p_oct.csv"} , {make_pair(2018, "NOV"), "Input/air2018p_nov.csv"} , {make_pair(2018, "DEC"), "Input/air2016p_dec.csv"} ,
+	};
 	//user enters year
 	while(!valid)
 	{
-		cout << "Please enter a year between 2016 and 2018: " << endl;
+		cout << "Please enter a year between 2016 and 2018: ";
 		cin >> year;
-		valid = validate(year, {2016, 2017, 2018});
+		valid = validateN(year, {2016, 2017, 2018});
 	}
+	cout << endl;
 	valid = false;
 	while (!valid)
 	{
-		cout << "Please select half 1 or half 2 of the year: " << endl;
+		cout << "Please select a month to test using uppercase, three letter codes: " << endl;
+		cout << "Example: JUN" << endl;;
 		cin >> s;
-		valid = validate(s, { 1, 2 });
+		valid = validateS(s, { "JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC" });
 	}
 	valid = false;
 	//user enters which structure to use
@@ -105,14 +132,14 @@ int main() {
 		cout << "1. Map" << endl;
 		cout << "2. Directed Graph" << endl;
 		cin >> structure;
-		valid = validate(structure, {1,2});
+		valid = validateN(structure, {1,2});
 	}
 	valid = false;
 	//if they chose option 1,map
 	if (structure == 1) {
 		int menuOption = 0;
 		clock_t t = clock();
-		MapS m(year,s);
+		MapS m(set[make_pair(year, s )]);
 		while (menuOption != 7) {
 			string input, input2;
 			MenuSelect();
@@ -221,7 +248,7 @@ int main() {
 		int menuOption = 0;
 		clock_t t = clock();
 		GraphS g;
-		g.readData(year, s);
+		g.readData(set[make_pair(year, s)]);
 		while (menuOption != 7) {
 			string input, input2;
 			MenuSelect();

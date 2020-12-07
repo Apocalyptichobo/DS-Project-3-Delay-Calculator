@@ -46,20 +46,11 @@ GraphS::~GraphS()
     delete[] data;
 }
 
-void GraphS::readData(int year, int h)
+void GraphS::readData(string d)
 {
     int airport_id = 0;
-
-    string dataset;
-    if (year == 2016 && h == 1) dataset = "Input/2016p1.csv";
-    else if (year == 2016 && h == 2) dataset = "Input/2017p2.csv";
-    else if (year == 2017 && h == 1) dataset = "Input/2018p1.csv";
-    else if (year == 2017 && h == 2) dataset = "Input/2017p2.csv";
-    else if (year == 2018 && h == 1) dataset = "Input/2018p1.csv";
-    else if (year == 2018 && h == 2) dataset = "Input/2017p2.csv";
-
     ifstream file;
-    file.open(dataset, ios_base::in);
+    file.open(d, ios_base::in);
     bool first = true;
     string r, t, temp, origin, destination; //each row
     while (getline(file, r)) {

@@ -58,7 +58,7 @@ public:
 	map<string, Flight> data; //key first line, value is the flight data
 	//map<string, string> ID;
 	MapS();
-	MapS(int year, int s);
+	MapS(string d);
 	void Option1(string& input);//done
 	void Option2(string& input, string& input2);//done
 	void Option3(string& input);//done

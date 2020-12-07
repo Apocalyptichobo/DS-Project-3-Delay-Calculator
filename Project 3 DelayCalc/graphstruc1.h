@@ -18,7 +18,7 @@ private:
     map<string, int> airports;
 public:
     GraphS(); //DONE
-    void readData(int year, int s); //DONE
+    void readData(string d); //DONE
     void Option1(string& input);
     void Option2(string& input, string& input2);
     void Option3(string& input);
