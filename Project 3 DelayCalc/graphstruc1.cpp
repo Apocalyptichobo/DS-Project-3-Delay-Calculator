@@ -2,7 +2,11 @@
 GraphS::GraphS()
 {
     airports.clear();
-
+    data = new vector<GFlight>* [WIDTH];
+    for(int i = 0; i < WIDTH; i ++)
+    {
+        data[i]= new vector<GFlight>[WIDTH];
+    }
 }
 
 void GraphS::copy(const GraphS &other) {
@@ -23,7 +27,6 @@ void GraphS::copy(const GraphS &other) {
 
 }
 
-
 GraphS::GraphS(const GraphS &other) {
     copy(other);
 }
@@ -37,16 +40,10 @@ GraphS::~GraphS()
 {
     for(int i = 0; i < WIDTH; i++)
     {
-        for(int j = 0; j <WIDTH; j++)
-        {
-            for(int k = 0; k < data[i][j].size(); k++)
-            {
-                delete data[i][j][k];
-            }
-
-        }
+        delete data[i];
 
     }
+    delete data;
 }
 
 
@@ -68,20 +65,20 @@ void GraphS::readData(int year)
             first = false;
             continue;
         }
-        GFlight* f = new GFlight;
+        GFlight f;
 
         stringstream ss(r);
         getline(ss, temp, ','); //skips the numbering
         getline(ss, temp, ',');
-        f->date = stoi(temp);	//date
+        f.date = stoi(temp);	//date
         getline(ss, temp, ',');
-        f->carrier = temp;		//carrier
+        f.carrier = temp;		//carrier
         getline(ss, temp, ',');
-        f->flight_number = temp; //num
+        f.flight_number = temp; //num
 
         getline(ss, temp, ',');
         origin = temp;
-        f->origin = origin;
+        f.origin = origin;
         if (airports.count(origin) == 0)
         {
             airports[origin] = airport_id;
@@ -90,7 +87,7 @@ void GraphS::readData(int year)
 
         getline(ss, temp, ',');
         destination = temp;
-        f->destination = destination;
+        f.destination = destination;
         if (airports.count(destination) == 0)
         {
             airports[destination] = airport_id;
@@ -98,47 +95,47 @@ void GraphS::readData(int year)
         }
 
         getline(ss, temp, ',');
-        f->crs_dept_time = stoi(temp);
+        f.crs_dept_time = stoi(temp);
         getline(ss, temp, ',');
-        f->dept_time = stoi(temp);
+        f.dept_time = stoi(temp);
         getline(ss, temp, ',');
-        f->dep_delay = stoi(temp);
+        f.dep_delay = stoi(temp);
         getline(ss, temp, ',');
-        f->wheels_off = stoi(temp);
+        f.wheels_off = stoi(temp);
         getline(ss, temp, ',');
-        f->wheels_on = stoi(temp);
+        f.wheels_on = stoi(temp);
         getline(ss, temp, ',');
-        f->taxi_in = stoi(temp);
+        f.taxi_in = stoi(temp);
         getline(ss, temp, ',');
-        f->crs_arr_time = stoi(temp);
+        f.crs_arr_time = stoi(temp);
         getline(ss, temp, ',');
-        f->arr_time = stoi(temp);
+        f.arr_time = stoi(temp);
         getline(ss, temp, ',');
-        f->arr_delay = stoi(temp);
+        f.arr_delay = stoi(temp);
         getline(ss, temp, ',');
-        f->cancelled = stoi(temp);
+        f.cancelled = stoi(temp);
         getline(ss, temp, ',');
-        f->cancel_code = temp;
+        f.cancel_code = temp;
         getline(ss, temp, ',');
-        f->diverted = stoi(temp);
+        f.diverted = stoi(temp);
         getline(ss, temp, ',');
-        f->crs_elapsed_time = stoi(temp);
+        f.crs_elapsed_time = stoi(temp);
         getline(ss, temp, ',');
-        f->actual_elapsed_time = stoi(temp);
+        f.actual_elapsed_time = stoi(temp);
         getline(ss, temp, ',');
-        f->air_time = stoi(temp);
+        f.air_time = stoi(temp);
         getline(ss, temp, ',');
-        f->distance = stoi(temp);
+        f.distance = stoi(temp);
         getline(ss, temp, ',');
-        f->carrier_delay = stoi(temp);
+        f.carrier_delay = stoi(temp);
         getline(ss, temp, ',');
-        f->weather_delay = stoi(temp);
+        f.weather_delay = stoi(temp);
         getline(ss, temp, ',');
-        f->nas_delay = stoi(temp);
+        f.nas_delay = stoi(temp);
         getline(ss, temp, ',');
-        f->security_delay = stoi(temp);
+        f.security_delay = stoi(temp);
         getline(ss, temp, ',');
-        f->late_aircraft_delay = stoi(temp);
+        f.late_aircraft_delay = stoi(temp);
 
         data[airports[origin]][airports[destination]].push_back(f);
     }
@@ -214,8 +211,8 @@ float GraphS::airAvgDelay(string& airpt)
     {
         for (unsigned int j = 0; j < data[airports[airpt]][i].size(); i++)
         {
-            float dept = (float)data[airports[airpt]][i][j]->dep_delay;
-            float arr = (float)data[airports[airpt]][i][j]->arr_delay;
+            float dept = (float)data[airports[airpt]][i][j].dep_delay;
+            float arr = (float)data[airports[airpt]][i][j].arr_delay;
 
             total_delay = dept + arr;
         }
@@ -235,19 +232,19 @@ string GraphS::airDelayType(string& airpt)
         for (unsigned int j = 0; j < data[airports[airpt]][i].size(); j++)
         {
 
-            if (data[airports[airpt]][i][j]->carrier_delay != 0) {
+            if (data[airports[airpt]][i][j].carrier_delay != 0) {
                 delay_freqs["Carrier Delay"] = delay_freqs.count("Carrier Delay") + 1;
             }
-            if (data[airports[airpt]][i][j]->weather_delay != 0) {
+            if (data[airports[airpt]][i][j].weather_delay != 0) {
                 delay_freqs["Weather Delay"] = delay_freqs.count("Weather Delay") + 1;
             }
-            if (data[airports[airpt]][i][j]->nas_delay != 0) {
+            if (data[airports[airpt]][i][j].nas_delay != 0) {
                 delay_freqs["nas Delay"] = delay_freqs.count("nas Delay") + 1;
             }
-            if (data[airports[airpt]][i][j]->security_delay != 0) {
+            if (data[airports[airpt]][i][j].security_delay != 0) {
                 delay_freqs["Security Delay"] = delay_freqs.count("Security Delay") + 1;
             }
-            if (data[airports[airpt]][i][j]->late_aircraft_delay != 0) {
+            if (data[airports[airpt]][i][j].late_aircraft_delay != 0) {
                 delay_freqs["Late Air Craft Delay"] = delay_freqs.count("Late Air Craft Delay") + 1;
             }
         }
@@ -265,7 +262,7 @@ string GraphS::airCarrier(string& airpt)
     {
         for (unsigned int j = 0; j < data[airports[airpt]][i].size(); j++)
         {
-            comp_freqs[data[airports[airpt]][i][j]->carrier] = comp_freqs.count(data[airports[airpt]][i][j]->carrier) + 1;
+            comp_freqs[data[airports[airpt]][i][j].carrier] = comp_freqs.count(data[airports[airpt]][i][j].carrier) + 1;
         }
 
     }
@@ -279,32 +276,32 @@ float GraphS::airPercentDelayed(string& airpt) {
     for (int i = 0; i < WIDTH; i++) {
         for (unsigned int j = 0; j < data[airports[airpt]][i].size(); j++)
         {
-            if (data[airports[airpt]][i][j]->date != 0) {
+            if (data[airports[airpt]][i][j].date != 0) {
                 num_flights++;
             }
             else continue;
 
-            if (data[airports[airpt]][i][j]->carrier_delay != 0)
+            if (data[airports[airpt]][i][j].carrier_delay != 0)
             {
                 num_delayed_flights++;
                 continue;
             }
-            else if (data[airports[airpt]][i][j]->weather_delay != 0)
+            else if (data[airports[airpt]][i][j].weather_delay != 0)
             {
                 num_delayed_flights++;
                 continue;
             }
-            else if (data[airports[airpt]][i][j]->nas_delay != 0)
+            else if (data[airports[airpt]][i][j].nas_delay != 0)
             {
                 num_delayed_flights++;
                 continue;
             }
-            else if (data[airports[airpt]][i][j]->security_delay != 0)
+            else if (data[airports[airpt]][i][j].security_delay != 0)
             {
                 num_delayed_flights++;
                 continue;
             }
-            else if (data[airports[airpt]][i][j]->late_aircraft_delay != 0)
+            else if (data[airports[airpt]][i][j].late_aircraft_delay != 0)
             {
                 num_delayed_flights++;
                 continue;
@@ -322,7 +319,7 @@ int GraphS::airNumFlownTo(string& airpt)
     {
         for (unsigned int i = 0; i < data[j][airports[airpt]].size(); j++)
         {
-            if (data[j][airports[airpt]][i]->date != 0)
+            if (data[j][airports[airpt]][i].date != 0)
             {
                 num_flights++;
             }
@@ -340,7 +337,7 @@ int GraphS::airNumFlownFrom(string& airpt)
     {
         for (unsigned int j = 0; j < data[airports[airpt]][i].size(); j++)
         {
-            if (data[airports[airpt]][i][j]->date != 0)
+            if (data[airports[airpt]][i][j].date != 0)
             {
                 num_flights++;
             }
@@ -360,27 +357,27 @@ int GraphS::airNumDelayed(string& airpt)
     {
         for (unsigned int j = 0; j < data[airports[airpt]][i].size(); j++)
         {
-            if (data[airports[airpt]][i][j]->carrier_delay != 0)
+            if (data[airports[airpt]][i][j].carrier_delay != 0)
             {
                 num_flights++;
                 continue;
             }
-            else if (data[airports[airpt]][i][j]->weather_delay != 0)
+            else if (data[airports[airpt]][i][j].weather_delay != 0)
             {
                 num_flights++;
                 continue;
             }
-            else if (data[airports[airpt]][i][j]->nas_delay != 0)
+            else if (data[airports[airpt]][i][j].nas_delay != 0)
             {
                 num_flights++;
                 continue;
             }
-            else if (data[airports[airpt]][i][j]->security_delay != 0)
+            else if (data[airports[airpt]][i][j].security_delay != 0)
             {
                 num_flights++;
                 continue;
             }
-            else if (data[airports[airpt]][i][j]->late_aircraft_delay != 0)
+            else if (data[airports[airpt]][i][j].late_aircraft_delay != 0)
             {
                 num_flights++;
                 continue;
@@ -402,7 +399,7 @@ float GraphS::airAvgTravelTime(string& airpt)
     {
         for (unsigned int j = 0; j < data[airports[airpt]][i].size(); j++)
         {
-            total_travel_time += data[airports[airpt]][i][j]->air_time;
+            total_travel_time += data[airports[airpt]][i][j].air_time;
 
         }
     }
@@ -420,8 +417,8 @@ float GraphS::ADAvgDelay(string& airpt1, string& airpt2)
     for (unsigned int i = 0; i < data[airports[airpt1]][airports[airpt2]].size(); i++)
     {
 
-        float dept = (float)data[airports[airpt1]][airports[airpt2]][i]->dep_delay;
-        float arr = (float)data[airports[airpt1]][airports[airpt2]][i]->arr_delay;
+        float dept = (float)data[airports[airpt1]][airports[airpt2]][i].dep_delay;
+        float arr = (float)data[airports[airpt1]][airports[airpt2]][i].arr_delay;
 
         delay_time = delay_time + dept + arr;
     }
@@ -434,19 +431,19 @@ string GraphS::ADDelayType(string& airpt1, string& airpt2)
     map<string, int> delay_freqs;
     for (unsigned int i = 0; i < data[airports[airpt1]][airports[airpt2]].size(); i++)
     {
-        if (data[airports[airpt1]][airports[airpt2]][i]->carrier_delay != 0) {
+        if (data[airports[airpt1]][airports[airpt2]][i].carrier_delay != 0) {
             delay_freqs["Carrier Delay"] = delay_freqs.count("Carrier Delay") + 1;
         }
-        if (data[airports[airpt1]][airports[airpt2]][i]->weather_delay != 0) {
+        if (data[airports[airpt1]][airports[airpt2]][i].weather_delay != 0) {
             delay_freqs["Weather Delay"] = delay_freqs.count("Weather Delay") + 1;
         }
-        if (data[airports[airpt1]][airports[airpt2]][i]->nas_delay != 0) {
+        if (data[airports[airpt1]][airports[airpt2]][i].nas_delay != 0) {
             delay_freqs["nas Delay"] = delay_freqs.count("nas Delay") + 1;
         }
-        if (data[airports[airpt1]][airports[airpt2]][i]->security_delay != 0) {
+        if (data[airports[airpt1]][airports[airpt2]][i].security_delay != 0) {
             delay_freqs["Security Delay"] = delay_freqs.count("Security Delay") + 1;
         }
-        if (data[airports[airpt1]][airports[airpt2]][i]->late_aircraft_delay != 0) {
+        if (data[airports[airpt1]][airports[airpt2]][i].late_aircraft_delay != 0) {
             delay_freqs["Late Air Craft Delay"] = delay_freqs.count("Late Air Craft Delay") + 1;
         }
     }
@@ -462,32 +459,32 @@ float GraphS::ADPerDelayed(string& airpt1, string& airpt2)
     for (unsigned int i = 0; i < data[airports[airpt1]][airports[airpt2]].size(); i++)
     {
 
-        if (data[airports[airpt1]][airports[airpt2]][i]->date != 0) {
+        if (data[airports[airpt1]][airports[airpt2]][i].date != 0) {
             num_flights++;
         }
         else continue;
 
-        if (data[airports[airpt1]][airports[airpt2]][i]->carrier_delay != 0)
+        if (data[airports[airpt1]][airports[airpt2]][i].carrier_delay != 0)
         {
             num_delayed_flights++;
             continue;
         }
-        else if (data[airports[airpt1]][airports[airpt2]][i]->weather_delay != 0)
+        else if (data[airports[airpt1]][airports[airpt2]][i].weather_delay != 0)
         {
             num_delayed_flights++;
             continue;
         }
-        else if (data[airports[airpt1]][airports[airpt2]][i]->nas_delay != 0)
+        else if (data[airports[airpt1]][airports[airpt2]][i].nas_delay != 0)
         {
             num_delayed_flights++;
             continue;
         }
-        else if (data[airports[airpt1]][airports[airpt2]][i]->security_delay != 0)
+        else if (data[airports[airpt1]][airports[airpt2]][i].security_delay != 0)
         {
             num_delayed_flights++;
             continue;
         }
-        else if (data[airports[airpt1]][airports[airpt2]][i]->late_aircraft_delay != 0)
+        else if (data[airports[airpt1]][airports[airpt2]][i].late_aircraft_delay != 0)
         {
             num_delayed_flights++;
             continue;
@@ -508,8 +505,8 @@ float GraphS::avgTaxiTime(string& airpt1, string& airpt2, int in_or_out) {
 
     for(unsigned int i = 0; i < data[airports[airpt1]][airports[airpt2]].size(); i++)
     {
-        if (in_or_out == 0) total_taxi_time += data[airports[airpt1]][airports[airpt2]][i]->taxi_in;
-        else total_taxi_time += data[airports[airpt1]][airports[airpt2]][i]->taxi_out;
+        if (in_or_out == 0) total_taxi_time += data[airports[airpt1]][airports[airpt2]][i].taxi_in;
+        else total_taxi_time += data[airports[airpt1]][airports[airpt2]][i].taxi_out;
     }
 
     return total_taxi_time / num_flights;
@@ -525,26 +522,26 @@ int GraphS::ADNumDelayed(string& airpt1, string& airpt2) {
     int num_delayed_flights = 0;
     for (unsigned int i = 0; i < data[airports[airpt1]][airports[airpt2]].size(); i++)
     {
-        if (data[airports[airpt1]][airports[airpt2]][i]->carrier_delay != 0)
+        if (data[airports[airpt1]][airports[airpt2]][i].carrier_delay != 0)
         {
             num_delayed_flights++;
             continue;
         }
-        else if (data[airports[airpt1]][airports[airpt2]][i]->weather_delay != 0)
+        else if (data[airports[airpt1]][airports[airpt2]][i].weather_delay != 0)
         {
             num_delayed_flights++;
             continue;
         }
-        else if (data[airports[airpt1]][airports[airpt2]][i]->nas_delay != 0)
+        else if (data[airports[airpt1]][airports[airpt2]][i].nas_delay != 0)
         {
             num_delayed_flights++;
             continue;
         }
-        else if (data[airports[airpt1]][airports[airpt2]][i]->security_delay != 0) {
+        else if (data[airports[airpt1]][airports[airpt2]][i].security_delay != 0) {
             num_delayed_flights++;
             continue;
         }
-        else if (data[airports[airpt1]][airports[airpt2]][i]->late_aircraft_delay != 0)
+        else if (data[airports[airpt1]][airports[airpt2]][i].late_aircraft_delay != 0)
         {
             num_delayed_flights++;
             continue;
@@ -566,12 +563,12 @@ float GraphS::comAvgDelay(string& corp)
         {
             for (unsigned int k = 0; k < data[i][j].size(); k++)
             {
-                if (data[i][j][k]->carrier == corp)
+                if (data[i][j][k].carrier == corp)
                 {
                     num_flights++;
 
-                    float dept = (float)data[i][j][k]->dep_delay;
-                    float arr = (float)data[i][j][k]->arr_delay;
+                    float dept = (float)data[i][j][k].dep_delay;
+                    float arr = (float)data[i][j][k].arr_delay;
 
                     delay_time = delay_time + dept + arr;
                 }
@@ -592,25 +589,25 @@ string GraphS::comDelayType(string& corp)
         {
             for (unsigned int k = 0; k < data[i][j].size(); k++)
             {
-                if (data[i][j][k]->carrier == corp)
+                if (data[i][j][k].carrier == corp)
                 {
-                    if (data[i][j][k]->carrier_delay != 0)
+                    if (data[i][j][k].carrier_delay != 0)
                     {
                         delay_freqs["Carrier Delay"] = delay_freqs.count("Carrier Delay") + 1;
                     }
-                    if (data[i][j][k]->weather_delay != 0)
+                    if (data[i][j][k].weather_delay != 0)
                     {
                         delay_freqs["Weather Delay"] = delay_freqs.count("Weather Delay") + 1;
                     }
-                    if (data[i][j][k]->nas_delay != 0)
+                    if (data[i][j][k].nas_delay != 0)
                     {
                         delay_freqs["nas Delay"] = delay_freqs.count("nas Delay") + 1;
                     }
-                    if (data[i][j][k]->security_delay != 0)
+                    if (data[i][j][k].security_delay != 0)
                     {
                         delay_freqs["Security Delay"] = delay_freqs.count("Security Delay") + 1;
                     }
-                    if (data[i][j][k]->late_aircraft_delay != -1)
+                    if (data[i][j][k].late_aircraft_delay != -1)
                     {
                         delay_freqs["Late Air Craft Delay"] = delay_freqs.count("Late Air Craft Delay") + 1;
                     }
@@ -635,31 +632,31 @@ float GraphS::comPerDelayed(string& corp)
         {
             for (unsigned int k = 0; k < data[i][j].size(); k++)
             {
-                if (data[i][j][k]->carrier == corp)
+                if (data[i][j][k].carrier == corp)
                 {
                     num_flights++;
 
-                    if(data[i][j][k]->carrier_delay != 0)
+                    if(data[i][j][k].carrier_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
                     }
-                    if(data[i][j][k]->weather_delay != 0)
+                    if(data[i][j][k].weather_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
                     }
-                    if(data[i][j][k]->nas_delay != 0)
+                    if(data[i][j][k].nas_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
                     }
-                    if(data[i][j][k]->security_delay != 0)
+                    if(data[i][j][k].security_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
                     }
-                    if(data[i][j][k]->late_aircraft_delay != 0)
+                    if(data[i][j][k].late_aircraft_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
@@ -686,7 +683,7 @@ float GraphS::comAvgTravelTime(string& corp)
             {
                 num_flights++;
 
-                travel_time += data[i][j][k]->air_time;
+                travel_time += data[i][j][k].air_time;
 
             }
         }
@@ -722,30 +719,30 @@ int GraphS::comNumDelayed(string& corp)
         {
             for (unsigned int k = 0; k < data[i][j].size(); k++)
             {
-                if (data[i][j][k]->carrier == corp)
+                if (data[i][j][k].carrier == corp)
                 {
 
-                    if(data[i][j][k]->carrier_delay != 0)
+                    if(data[i][j][k].carrier_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
                     }
-                    if(data[i][j][k]->weather_delay != 0)
+                    if(data[i][j][k].weather_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
                     }
-                    if(data[i][j][k]->nas_delay != 0)
+                    if(data[i][j][k].nas_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
                     }
-                    if(data[i][j][k]->security_delay != 0)
+                    if(data[i][j][k].security_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
                     }
-                    if(data[i][j][k]->late_aircraft_delay != 0)
+                    if(data[i][j][k].late_aircraft_delay != 0)
                     {
                         num_delayed_flights++;
                         continue;
@@ -773,41 +770,41 @@ float GraphS::avgDelay(string& delayType)
 
                 if(delayType == "CARRIER")
                 {
-                    if(data[i][j][k]->carrier_delay != 0)
+                    if(data[i][j][k].carrier_delay != 0)
                     {
-                        delay_time += data[i][j][k]->carrier_delay;
+                        delay_time += data[i][j][k].carrier_delay;
                         num_flights++;
                     }
                 }
                 else if(delayType == "WEATHER")
                 {
-                    if(data[i][j][k]->weather_delay != 0)
+                    if(data[i][j][k].weather_delay != 0)
                     {
-                        delay_time += data[i][j][k]->weather_delay;
+                        delay_time += data[i][j][k].weather_delay;
                         num_flights++;
                     }
                 }
                 else if(delayType == "NAS")
                 {
-                    if(data[i][j][k]->nas_delay != 0)
+                    if(data[i][j][k].nas_delay != 0)
                     {
-                        delay_time += data[i][j][k]->nas_delay;
+                        delay_time += data[i][j][k].nas_delay;
                         num_flights++;
                     }
                 }
                 else if(delayType == "SECURITY")
                 {
-                    if(data[i][j][k]->security_delay != 0)
+                    if(data[i][j][k].security_delay != 0)
                     {
-                        delay_time += data[i][j][k]->security_delay;
+                        delay_time += data[i][j][k].security_delay;
                         num_flights++;
                     }
                 }
                 else if(delayType == "LATE_AIRCRAFT")
                 {
-                    if(data[i][j][k]->carrier_delay != 0)
+                    if(data[i][j][k].carrier_delay != 0)
                     {
-                        delay_time += data[i][j][k]->late_aircraft_delay;
+                        delay_time += data[i][j][k].late_aircraft_delay;
                         num_flights++;
                     }
                 }
@@ -870,41 +867,41 @@ float GraphS::avgTravelTime(string& delayType)
 
                 if (delayType == "CARRIER")
                 {
-                    if (data[i][j][k]->carrier_delay != 0)
+                    if (data[i][j][k].carrier_delay != 0)
                     {
-                        travel_time += data[i][j][k]->air_time;
+                        travel_time += data[i][j][k].air_time;
                         num_flights++;
                     }
                 }
                 else if (delayType == "WEATHER")
                 {
-                    if (data[i][j][k]->weather_delay != 0)
+                    if (data[i][j][k].weather_delay != 0)
                     {
-                        travel_time += data[i][j][k]->air_time;
+                        travel_time += data[i][j][k].air_time;
                         num_flights++;
                     }
                 }
                 else if (delayType == "NAS")
                 {
-                    if (data[i][j][k]->nas_delay != 0)
+                    if (data[i][j][k].nas_delay != 0)
                     {
-                        travel_time += data[i][j][k]->air_time;
+                        travel_time += data[i][j][k].air_time;
                         num_flights++;
                     }
                 }
                 else if (delayType == "SECURITY")
                 {
-                    if (data[i][j][k]->security_delay != 0)
+                    if (data[i][j][k].security_delay != 0)
                     {
-                        travel_time += data[i][j][k]->air_time;
+                        travel_time += data[i][j][k].air_time;
                         num_flights++;
                     }
                 }
                 else if (delayType == "LATE_AIRCRAFT")
                 {
-                    if (data[i][j][k]->carrier_delay != 0)
+                    if (data[i][j][k].carrier_delay != 0)
                     {
-                        travel_time += data[i][j][k]->air_time;
+                        travel_time += data[i][j][k].air_time;
                         num_flights++;
                     }
                 }
@@ -928,9 +925,9 @@ float GraphS::timeAvgDelay(int time_of_day)
             for(unsigned int k = 0; k < data[i][j].size(); k++)
             {
 
-                if (data[i][j][k]->dept_time == time_of_day)
+                if (data[i][j][k].dept_time == time_of_day)
                 {
-                    delay_time += data[i][j][k]->dep_delay;
+                    delay_time += data[i][j][k].dep_delay;
                     num_flights++;
                 }
             }
@@ -950,25 +947,25 @@ string GraphS::timeDelayType(int time_of_day)
 
             for(unsigned int k = 0; k < data[i][j].size(); k++)
             {
-                if (data[i][j][k]->dept_time == time_of_day)
+                if (data[i][j][k].dept_time == time_of_day)
                 {
-                    if(data[i][j][k]->carrier_delay != 0)
+                    if(data[i][j][k].carrier_delay != 0)
                     {
                         delay_freqs["Carrier Delay"] = delay_freqs.count("Carrier Delay") + 1;
                     }
-                    else if(data[i][j][k]->carrier_delay != 0)
+                    else if(data[i][j][k].carrier_delay != 0)
                     {
                         delay_freqs["Weather Delay"] = delay_freqs.count("Weather Delay") + 1;
                     }
-                    else if(data[i][j][k]->carrier_delay != 0)
+                    else if(data[i][j][k].carrier_delay != 0)
                     {
                         delay_freqs["nas Delay"] = delay_freqs.count("nas Delay") + 1;
                     }
-                    else if(data[i][j][k]->security_delay != 0)
+                    else if(data[i][j][k].security_delay != 0)
                     {
                         delay_freqs["Security Delay"] = delay_freqs.count("Security Delay") + 1;
                     }
-                    else if(data[i][j][k]->late_aircraft_delay != 0)
+                    else if(data[i][j][k].late_aircraft_delay != 0)
                     {
                         delay_freqs["Late Aircraft Delay"] = delay_freqs.count("Late Aircraft Delay") + 1;
                     }
@@ -994,11 +991,11 @@ string GraphS::airportDelayTimes(int time_of_day, int least_or_most)
         {
             for (unsigned int k = 0; k < data[i][j].size(); k++)
             {
-                if (data[i][j][k]->dept_time == time_of_day)
+                if (data[i][j][k].dept_time == time_of_day)
                 {
-                    if (time_per_port.count(data[i][j][k]->carrier) == 0)
-                        time_per_port[data[i][j][k]->carrier] = data[i][j][k]->dep_delay;
-                    else time_per_port[data[i][j][k]->carrier] += data[i][j][k]->dep_delay;
+                    if (time_per_port.count(data[i][j][k].carrier) == 0)
+                        time_per_port[data[i][j][k].carrier] = data[i][j][k].dep_delay;
+                    else time_per_port[data[i][j][k].carrier] += data[i][j][k].dep_delay;
 
                 }
 
@@ -1036,32 +1033,32 @@ float GraphS::timePercentDelayed(int time_of_day)
         {
             for (unsigned int k = 0; k < data[i][j].size(); k++)
             {
-                bool lower_bound = data[i][j][k]->dept_time >= (time_of_day - 5) % 2400;
-                bool upper_bound = data[i][j][k]->dept_time <= (time_of_day + 5) % 2400;
+                bool lower_bound = data[i][j][k].dept_time >= (time_of_day - 5) % 2400;
+                bool upper_bound = data[i][j][k].dept_time <= (time_of_day + 5) % 2400;
                 if (upper_bound && lower_bound)
                 {
                     num_flights++;
-                    if (data[i][j][k]->carrier_delay != 0)
+                    if (data[i][j][k].carrier_delay != 0)
                     {
                         flights_delayed++;
                         continue;
                     }
-                    else if (data[i][j][k]->weather_delay != 0)
+                    else if (data[i][j][k].weather_delay != 0)
                     {
                         flights_delayed++;
                         continue;
                     }
-                    else if (data[i][j][k]->nas_delay != 0)
+                    else if (data[i][j][k].nas_delay != 0)
                     {
                         flights_delayed++;
                         continue;
                     }
-                    else if (data[i][j][k]->security_delay != 0)
+                    else if (data[i][j][k].security_delay != 0)
                     {
                         flights_delayed++;
                         continue;
                     }
-                    else if (data[i][j][k]->late_aircraft_delay != 0)
+                    else if (data[i][j][k].late_aircraft_delay != 0)
                     {
                         flights_delayed++;
                         continue;

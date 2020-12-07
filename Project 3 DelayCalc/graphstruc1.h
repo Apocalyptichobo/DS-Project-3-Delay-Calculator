@@ -16,7 +16,7 @@ using namespace std;
 
 class GraphS {
 private:
-    vector<GFlight*> data[WIDTH][WIDTH];
+    vector<GFlight>** data;
     map<string, int> airports;
 public:
     GraphS(); //DONE
@@ -142,3 +142,5 @@ public:
     string airportDelayTimes(int time_of_day, int least_or_most); //DONE, airportDelayTimes
     float timePercentDelayed(int time_of_day); //DONE, timePercentDelayed
 };
+
+
