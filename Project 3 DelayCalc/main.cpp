@@ -82,13 +82,20 @@ bool validate(int input, vector<int> numbers)
 int main() {
 	Display();
 	bool valid = false;
-	int year, structure{};
+	int year, s, structure{};
 	//user enters year
 	while(!valid)
 	{
 		cout << "Please enter a year between 2016 and 2018: " << endl;
 		cin >> year;
 		valid = validate(year, {2016, 2017, 2018});
+	}
+	valid = false;
+	while (!valid)
+	{
+		cout << "Please select half 1 or half 2 of the year: " << endl;
+		cin >> s;
+		valid = validate(s, { 1, 2 });
 	}
 	valid = false;
 	//user enters which structure to use
@@ -105,7 +112,7 @@ int main() {
 	if (structure == 1) {
 		int menuOption = 0;
 		clock_t t = clock();
-		MapS m(year);
+		MapS m(year,s);
 		while (menuOption != 7) {
 			string input, input2;
 			MenuSelect();
@@ -139,14 +146,14 @@ int main() {
 					cin >> input;
 					if (input == "help") {
 						//make list
-
+	
 					}
 					cout << endl;
 					cout << "Destination: ";
 					cin >> input2;
 					if (input2 == "help") {
 						//make list
-
+	
 					}
 					else {
 						m.Option2(input, input2);
@@ -165,7 +172,7 @@ int main() {
 					cin >> input;
 					if (input == "help") {
 						//make list
-
+	
 					}
 					else {
 						m.Option3(input);
@@ -184,7 +191,7 @@ int main() {
 					cin >> input;
 					if (input == "help") {
 						//make list
-
+	
 					}
 					else {
 						m.Option4(input);
@@ -210,11 +217,11 @@ int main() {
 			}
 		}
 	}
-	else if (structure == 2) { //if they chose option 2, graph
+	if (structure == 2) { //if they chose option 2, graph
 		int menuOption = 0;
 		clock_t t = clock();
 		GraphS g;
-		g.readData(year);
+		g.readData(year, s);
 		while (menuOption != 7) {
 			string input, input2;
 			MenuSelect();
@@ -229,7 +236,7 @@ int main() {
 					cin >> input;
 					if (input == "help") {
 						//make list
-
+	
 					}
 					else {
 						g.Option1(input);
@@ -248,14 +255,14 @@ int main() {
 					cin >> input;
 					if (input == "help") {
 						//make list
-
+	
 					}
 					cout << endl;
 					cout << "Destination: ";
 					cin >> input2;
 					if (input2 == "help") {
 						//make list
-
+	
 					}
 					else {
 						g.Option2(input, input2);
@@ -274,7 +281,7 @@ int main() {
 					cin >> input;
 					if (input == "help") {
 						//make list
-
+	
 					}
 					else {
 						g.Option3(input);
@@ -293,7 +300,7 @@ int main() {
 					cin >> input;
 					if (input == "help") {
 						//make list
-
+	
 					}
 					else {
 						g.Option4(input);

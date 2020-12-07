@@ -8,9 +8,7 @@
 #include <cmath>
 #include <map>
 #include <algorithm>
-
 #include "GFlight.h"
-
 
 using namespace std;
 
@@ -20,7 +18,7 @@ private:
     map<string, int> airports;
 public:
     GraphS(); //DONE
-    void readData(int year); //DONE
+    void readData(int year, int s); //DONE
     void Option1(string& input);
     void Option2(string& input, string& input2);
     void Option3(string& input);
@@ -33,6 +31,7 @@ public:
     GraphS& operator=(const GraphS& other);
 
     void copy(const GraphS& other);
+	//destructor
     ~GraphS();
 
 
@@ -68,36 +67,6 @@ public:
         }
 
     }
-    ////Helpers for sorting by value
-    //bool criterionAsc(pair<string,int>& pair1, pair<string,int>&pair2)
-    //{
-    //    return pair1.second < pair2.second;
-    //}
-    //bool criterionDesc(pair<string,int>& pair1, pair<string,int>&pair2)
-    //{
-    //    return pair2.second > pair2.second;
-    //}
-    //
-    //void SortbyValue(map<string,int> Map, string& s)
-    //{
-    //	vector<pair<string,int>> v;
-    //
-    //	//copy key value pairs
-    //    for (auto it : Map)
-    //    {
-    //        v.push_back(it);
-    //    }
-    //	if (s == "Ascending")
-    //	{
-    //		sort(Map.begin(), Map.end(), criterionAsc);
-    //	}
-    //	else
-    //	{
-    //		sort(Map.begin(), Map.end(), criterionDesc);
-    //	}
-    //
-    //}
-
     //Option 1
     float comAvgDelay(string& corp); //DONE, comAvgDelay
     string comDelayType(string& corp); // DONE, comDelayType
@@ -142,5 +111,3 @@ public:
     string airportDelayTimes(int time_of_day, int least_or_most); //DONE, airportDelayTimes
     float timePercentDelayed(int time_of_day); //DONE, timePercentDelayed
 };
-
-
