@@ -62,13 +62,8 @@ void GraphS::readData(string d)
 
         stringstream ss(r);
         getline(ss, temp, ','); //skips the numbering
-        //getline(ss, temp, ',');
-        //f.date = temp;	//date
         getline(ss, temp, ',');
         f.carrier = temp;		//carrier
-        //getline(ss, temp, ',');
-        //f.flight_number = temp; //num
-
         getline(ss, temp, ',');
         origin = temp;
         f.origin = origin;
@@ -95,24 +90,10 @@ void GraphS::readData(string d)
         f.dep_delay = stoi(temp);
         getline(ss, temp, ',');
         f.taxi_out = stoi(temp);
-        /*getline(ss, temp, ',');
-        f.wheels_off = stoi(temp);
-        getline(ss, temp, ',');
-        f.wheels_on = stoi(temp);
-        getline(ss, temp, ',');
-        f.taxi_in = stoi(temp);
-        getline(ss, temp, ',');
-        f.crs_arr_time = stoi(temp);
-        getline(ss, temp, ',');
-        f.arr_time = stoi(temp);*/
         getline(ss, temp, ',');
         f.arr_delay = stoi(temp);
         getline(ss, temp, ',');
         f.cancelled = stoi(temp);
-        /*getline(ss, temp, ',');
-        f.cancel_code = temp;
-        getline(ss, temp, ',');
-        f.diverted = stoi(temp);*/
         getline(ss, temp, ',');
         f.crs_elapsed_time = stoi(temp);
         getline(ss, temp, ',');
@@ -133,7 +114,6 @@ void GraphS::readData(string d)
         f.late_aircraft_delay = stoi(temp);
 
         data[airports[origin]][airports[destination]].push_back(f);
-        //cout << data[0][1][1].destination;
     }
     file.close();
 }
@@ -214,18 +194,18 @@ void GraphS::Option5(string& input) {
 }
 
 ///////////////////////////////////           Option 3        //////////////////////////////////////////////////////////
-float GraphS::airAvgDelay(string& airpt)
+int GraphS::airAvgDelay(string& airpt)
 {
-    float num_flights = 0;
-    float total_delay = 0;
+    int num_flights = 0;
+    int total_delay = 0;
 
     for (int i = 0; i < WIDTH; i++)
     {
         num_flights += data[airports[airpt]][i].size();
         for (unsigned int j = 0; j < data[airports[airpt]][i].size(); i++)
         {
-            float dept = (float)data[airports[airpt]][i][j].dep_delay;
-            float arr = (float)data[airports[airpt]][i][j].arr_delay;
+            int dept = (float)data[airports[airpt]][i][j].dep_delay;
+            int arr = (float)data[airports[airpt]][i][j].arr_delay;
 
             total_delay = total_delay + dept + arr;
         }
@@ -238,7 +218,7 @@ float GraphS::airAvgDelay(string& airpt)
 string GraphS::airDelayType(string& airpt)
 {
     map<string, int> delay_freqs;
-    int cd, wd, nd, sd, lad = 1;
+    int cd = 1, wd = 1, nd = 1, sd = 1, lad = 1;
 
     for (int i = 0; i < WIDTH; i++)
     {
@@ -370,10 +350,10 @@ int GraphS::airNumDelayed(string& airpt)
 
 }
 
-float GraphS::airAvgTravelTime(string& airpt)
+int GraphS::airAvgTravelTime(string& airpt)
 {
-    float total_travel_time = 0;
-    float num_flights = 0;
+    int total_travel_time = 0;
+    int num_flights = 0;
 
 
     for (int i = 0; i < WIDTH; i++)
@@ -391,16 +371,16 @@ float GraphS::airAvgTravelTime(string& airpt)
 
 /////////////////////////////							Option 2								//////////////////////////////////////////////////////
 
-float GraphS::ADAvgDelay(string& airpt1, string& airpt2)
+int GraphS::ADAvgDelay(string& airpt1, string& airpt2)
 {
-    float num_flights = (float)data[airports[airpt1]][airports[airpt2]].size();
-    float delay_time = 0;
+    int num_flights = (float)data[airports[airpt1]][airports[airpt2]].size();
+    int delay_time = 0;
 
     for (unsigned int i = 0; i < data[airports[airpt1]][airports[airpt2]].size(); i++)
     {
 
-        float dept = (float)data[airports[airpt1]][airports[airpt2]][i].dep_delay;
-        float arr = (float)data[airports[airpt1]][airports[airpt2]][i].arr_delay;
+        int dept = (float)data[airports[airpt1]][airports[airpt2]][i].dep_delay;
+        int arr = (float)data[airports[airpt1]][airports[airpt2]][i].arr_delay;
 
         delay_time = delay_time + dept + arr;
     }
@@ -411,7 +391,7 @@ float GraphS::ADAvgDelay(string& airpt1, string& airpt2)
 string GraphS::ADDelayType(string& airpt1, string& airpt2)
 {
     map<string, int> delay_freqs;
-    int cd, wd, nd, sd, lad = 1;
+    int cd = 1, wd = 1, nd = 1, sd = 1, lad = 1;
     for (unsigned int i = 0; i < data[airports[airpt1]][airports[airpt2]].size(); i++)
     {
 
@@ -489,7 +469,7 @@ float GraphS::ADPerDelayed(string& airpt1, string& airpt2)
 
 pair<int,int> GraphS::avgTaxiTime(string& airpt1, string& airpt2) {
     int num_flights = 0;
-    int in, out = 0;
+    int in = 0, out = 0;
 
     for(unsigned int i = 0; i < data[airports[airpt1]][airports[airpt2]].size(); i++)
     {
@@ -526,10 +506,10 @@ int GraphS::ADNumDelayed(string& airpt1, string& airpt2) {
 }
 
 ////////////////////////////////////                            Option 1  (Cubic functions)						 ////////////////////////////////////////////////////////////////
-float GraphS::comAvgDelay(string& corp)
+int GraphS::comAvgDelay(string& corp)
 {
-    float num_flights = 0;
-    float delay_time = 0;
+    int num_flights = 0;
+    int delay_time = 0;
 
     for (unsigned int i = 0; i < WIDTH; i++)
     {
@@ -541,8 +521,8 @@ float GraphS::comAvgDelay(string& corp)
                 {
                     num_flights++;
 
-                    float dept = (float)data[i][j][k].dep_delay;
-                    float arr = (float)data[i][j][k].arr_delay;
+                    int dept = (float)data[i][j][k].dep_delay;
+                    int arr = (float)data[i][j][k].arr_delay;
 
                     delay_time = delay_time + dept + arr;
                 }
@@ -557,7 +537,7 @@ string GraphS::comDelayType(string& corp)
 {
     map<string, int> delay_freqs;
 
-    int cd, wd, nd, sd, lad = 1;
+    int cd = 1, wd = 1, nd = 1, sd = 1, lad = 1;
 
     for (int i = 0; i < WIDTH; i++)
     {
@@ -611,10 +591,10 @@ float GraphS::comPerDelayed(string& corp)
     return num_delayed_flights / num_flights;
 }
 
-float GraphS::comAvgTravelTime(string& corp)
+int GraphS::comAvgTravelTime(string& corp)
 {
-    float num_flights = 0;
-    float travel_time = 0;
+    int num_flights = 0;
+    int travel_time = 0;
 
     for (int i = 0; i < WIDTH; i++)
     {
@@ -673,11 +653,11 @@ int GraphS::comNumDelayed(string& corp)
     }
     return num_delayed_flights;
 }
-////////////////////////									Option 4								///////////////////////////////////////////////////////
-float GraphS::avgDelay(string& delayType)
+////////////////////////									                Option 4								                                    ///////////////////////////////////////////////////////
+int GraphS::avgDelay(string& delayType)
 {
-    float num_flights = 0;
-    float delay_time = 0;
+    int num_flights = 0;
+    int delay_time = 0;
 
     for(int i = 0; i < WIDTH; i++)
     {
@@ -720,10 +700,10 @@ float GraphS::avgDelay(string& delayType)
     return delay_time / num_flights;
 }
 
-float GraphS::avgTravelTime(string& delayType)
+int GraphS::avgTravelTime(string& delayType)
 {
-    float num_flights = 0;
-    float travel_time = 0;
+    int num_flights = 0;
+    int travel_time = 0;
 
     for (int i = 0; i < WIDTH; i++)
     {
@@ -766,10 +746,10 @@ float GraphS::avgTravelTime(string& delayType)
     return travel_time/num_flights;
 }
 ////////////////////									Option 5								////////////////////////////////////////
-float GraphS::timeAvgDelay(int time_of_day)
+int GraphS::timeAvgDelay(int time_of_day)
 {
-    float num_flights = 0;
-    float delay_time = 0;
+    int num_flights = 0;
+    int delay_time = 0;
 
     for(int i = 0; i < WIDTH; i++)
     {
@@ -791,7 +771,7 @@ float GraphS::timeAvgDelay(int time_of_day)
 string GraphS::timeDelayType(int time_of_day)
 {
     map<string, int> delay_freqs;
-    int cd, wd, nd, sd, lad = 1;
+    int cd = 1, wd = 1, nd = 1, sd = 1, lad = 1;
     for(int i=0; i < WIDTH; i++)
     {
         for(int j = 0; j < WIDTH; j++)

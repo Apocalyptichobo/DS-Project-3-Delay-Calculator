@@ -1,5 +1,6 @@
 #include "mapstruc.h"
 #include <algorithm>
+#include <string>
 #include <queue>
 using namespace std;
 
@@ -22,18 +23,15 @@ MapS::MapS(string d)
 		stringstream ss(r);
 		getline(ss, temp, ',');
 		num = temp;
-		//getline(ss, temp, ',');//empty
-		//getline(ss, temp, ',');
-		//f.date = temp;
 		getline(ss, temp, ',');
 		f.carrier = temp;
-		//ID.emplace(temp);
-		//getline(ss, temp, ',');
-		//f.flight_number = temp;
+		carrier[temp];
 		getline(ss, temp, ',');
 		f.origin = temp;
+		airports[temp];
 		getline(ss, temp, ',');
 		f.destination = temp;
+		airports[temp];
 		getline(ss, temp, ',');
 		f.crs_dept_time = stoi(temp);
 		getline(ss, temp, ',');
@@ -42,24 +40,12 @@ MapS::MapS(string d)
 		f.dep_delay = stoi(temp);
 		getline(ss, temp, ',');
 		f.taxi_out = stoi(temp);
-		//getline(ss, temp, ',');
-		//f.wheels_off = stoi(temp);
-		//getline(ss, temp, ',');
-		//f.wheels_on = stoi(temp);
 		getline(ss, temp, ',');
 		f.taxi_in = stoi(temp);
-		//getline(ss, temp, ',');
-		//f.crs_arr_time = stoi(temp);
-		//getline(ss, temp, ',');
-		//f.arr_time = stoi(temp);
 		getline(ss, temp, ',');
 		f.arr_delay = stoi(temp);
 		getline(ss, temp, ',');
 		f.cancelled = stoi(temp);
-		//getline(ss, temp, ',');
-		//f.cancel_code = temp;
-		//getline(ss, temp, ',');
-		//f.diverted = stoi(temp);
 		getline(ss, temp, ',');
 		f.crs_elapsed_time = stoi(temp);
 		getline(ss, temp, ',');
@@ -78,53 +64,65 @@ MapS::MapS(string d)
 		f.security_delay = stoi(temp);
 		getline(ss, temp, ',');
 		f.late_aircraft_delay = stoi(temp);
-		//data.insert(stoi(name), f);
 		data[num] = f;
+		
 	}
 	file.close();
 }
-void MapS::Option1(string& input)
+
+void MapS::Option1(string input)
 {
+	/*string fix = "\"";
+	string correct = fix + input;
+	correct = correct.append(fix);*/
 	//check to see if input is valid
 	//Input a company (via company identification code) vf or DL (carrier)
-	cout << "Average delay time for " << input << ": " << comAvgDelay(input) << endl;
+	cout << "Average delay time for " << input << ": " << comAvgDelay(input) << " minutes" << endl;
 	cout << "Most common delay issue for " << input << ": " << comDelayType(input) << endl;
-	cout << "Percentage of flights delayed for " << input << ": " << comPerDelayed(input) << endl;
-	cout << "Average travel time for " << input << ": " << comAvgTravelTime(input) <<endl;
-	cout << "Number of planes launched by " << input << ": " << comNumLaunched(input) << endl;
+	cout << "Average travel time for " << input << ": " << comAvgTravelTime(input) << " minutes" <<endl;
 	cout << "Number of planes delayed by " << input << ": " << comNumDelayed(input) << endl;
+	cout << "Number of planes launched by " << input << ": " << comNumLaunched(input) << endl;
+	cout << "Percentage of flights delayed for " << input << ": %" << comPerDelayed(input) * 100 << endl;
 }
 //done
 void MapS::Option2(string& input, string& input2)
 {
+	/*string fix = "\"";
+	string correct = fix + input;
+	correct = correct.append(fix);
+	string correct2 = fix + input2;
+	correct2 = correct2.append(fix);*/
 	//Input an arrival location and a departure location
-	cout << "Average delay time between " << input <<  " and " << input2 << ": " << ADAvgDelay(input, input2) << endl;
+	cout << "Average delay time between " << input <<  " and " << input2 << ": " << ADAvgDelay(input, input2) << " minutes" << endl;
 	cout << "Most common delay issue between " << input << " and " << input2 << ": " << ADDelayType(input, input2) << endl;
-	cout << "Percentage of flights delayed between " << input << " and " << input2 << ": %" << ADPerDelayed(input, input2) << endl;
-	cout << "Average taxi-out time between " << input << " and " << input2 << ": " << avgTaxiTime(input, input2).first << endl;
-	cout << "Average taxi-in time between " << input << " and " << input2 << ": " << avgTaxiTime(input, input2).second << endl;
-	cout << "Number of planes launched between " << input << " and " << input2 << ": " << ADNumLaunched(input, input2) << endl;
-	cout << "Number of planes delayed between " << input << " and " << input2 << ": " << ADNumDelayed(input, input2) << endl;
+	cout << "Average taxi-out time between " << input << " and " << input2 << ": " << avgTaxiTime(input, input2).first << " minutes" << endl;
+	cout << "Average taxi-in time between " << input << " and " << input2 << ": " << avgTaxiTime(input, input2).second << " minutes" << endl;
+	cout << "Number of planes delayed from " << input << " to " << input2 << ": " << ADNumDelayed(input, input2) << endl;
+	cout << "Number of planes launched from " << input << " to " << input2 << ": " << ADNumLaunched(input, input2) << endl;
+	cout << "Percentage of flights delayed between " << input << " and " << input2 << ": %" << ADPerDelayed(input, input2) * 100 << endl;
 }
 //done
 void MapS::Option3(string& input)
 {
+	/*string fix = "\"";
+	string correct = fix + input;
+	correct = correct.append(fix);*/
 	//Input an airport (via three letter identification code) Atlanta = ATL (origin)
-	cout << "Average delay time at " << input << ": " << airAvgDelay(input) << endl;
+	cout << "Average delay time at " << input << ": " << airAvgDelay(input) << " minutes" << endl;
 	cout << "Most common delay issue at " << input << ": " << airDelayType(input) << endl;
 	cout << "Most common airline flown at " << input << ": " << airCarrier(input) << endl;
-	cout << "Percentage of flights delayed at " << input << ": %" << airPercentDelayed(input) << endl;
+	cout << "Average travel time at " << input << ": " << airAvgTravelTime(input) << " minutes" << endl;
 	cout << "Number of flights to " << input << ": " << airNumFlown(input).first << endl;
 	cout << "Number of flights from " << input << ": " << airNumFlown(input).second << endl;
 	cout << "Number of flights delayed at " << input << ": " << airNumDelayed(input) << endl;
-	cout << "Average travel time at " << input << ": " << airAvgTravelTime(input) << endl;
+	cout << "Percentage of flights delayed at " << input << ": %" << airPercentDelayed(input) * 100 << endl;
 }
 //done
 void MapS::Option4(string& input)
 {
 	vector<string> best, worst;
 	//Input type of delay (from a given list of delays)
-	cout << "Average delay time for " << input << "delay: " << avgDelay(input) << endl;
+	cout << "Average delay time for " << input << " delay: " << avgDelay(input) << " minutes" << endl;
 	//cout << "Bottom five airports with the highest delay time for " << input << "delay: ";
 	/*worst = airportHighLow(input).first;
 	for (int i = 0; i < 5; i++)
@@ -137,25 +135,25 @@ void MapS::Option4(string& input)
 	{
 		cout << best[i] << " ";
 	}*/
-	cout << "Average travel time for " << input << "delay: " << avgTravelTime(input) << endl;
+	cout << "Average travel time for " << input << " delay: " << avgTravelTime(input) << " minutes" << endl;
 	//cout << "The best airport to go to avoid " << input << "delay: " << bestAirport(input) << endl;
 }
 //done
 void MapS::Option5(string& input)
 {
 	//Input preferred departure time (example being 0800)
-	cout << "Average delay time at " << input << "time: " << timeAvgDelay(input) << endl;
-	cout << "Most common delay for " << input << "time: " << timeDelayType(input) << endl;
-	cout << "Airport to fly out of with the least amount of delay time at " << input << "time: " << airportDelayTimes(input).first[0] << endl;
-	cout << "Airport to not fly out of with most amount of delay time at " << input << "time: " << airportDelayTimes(input).second[0] << endl;
-	cout << "Chance that your flight will be delayed at " << input << "time: %" << timePercentDelayed(input) << endl;
+	cout << "Average delay time at " << input << " time: " << timeAvgDelay(input) << " minutes" << endl;
+	cout << "Most common delay for " << input << " time: " << timeDelayType(input) << endl;
+	cout << "Airport to fly out of with the least amount of delay time at " << input << " time: " << airportDelayTimes(input).first[0] << endl;
+	cout << "Airport to not fly out of with most amount of delay time at " << input << " time: " << airportDelayTimes(input).second[0] << endl;
+	cout << "Chance that your flight will be delayed at " << input << " time: %" << timePercentDelayed(input) * 100 << endl;
 }
 //done
 //------------------------------------option 1------------------------------------------
-int MapS::comAvgDelay(string& search)
+int MapS::comAvgDelay(string search)
 {
 	int avgDelayT = 0;
-	int count = 1;
+	int count = 0;
 	for (auto iter = data.begin(); iter != data.end(); iter++)
 	{
 		if (iter->second.carrier == search)
@@ -168,7 +166,7 @@ int MapS::comAvgDelay(string& search)
 	return avgDelayT / count;
 }
 //done
-string MapS::comDelayType(string& search)
+string MapS::comDelayType(string search)
 {//most common delay type for company
 	float cd = 0, wd = 0, nd = 0, sd = 0, lad = 0;
 	vector<pair<float, string>> vect;
@@ -193,52 +191,47 @@ string MapS::comDelayType(string& search)
 	return it->second;
 }
 //done
-float MapS::comPerDelayed(string& search)
+float MapS::comPerDelayed(string search)
 {
 	float total_flights = 0.0;
 	float number_flights_delayed = 0.0;
-
-
 	for (auto iter = data.begin(); iter != data.end(); iter++)
 	{
 		if (iter->second.carrier == search)
 		{
-
-			if (iter->second.carrier_delay != -1)
+			total_flights++;
+			if (iter->second.carrier_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.weather_delay != -1)
+			else if (iter->second.weather_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.nas_delay != -1)
+			else if (iter->second.nas_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.security_delay != -1)
+			else if (iter->second.security_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.late_aircraft_delay != -1)
+			else if (iter->second.late_aircraft_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-
+			
 		}
-
-		total_flights++;
 	}
-
 	return number_flights_delayed / total_flights;
 }
 //done
-int MapS::comAvgTravelTime(string& search)
+int MapS::comAvgTravelTime(string search)
 {
 	int avgTimeT = 0;
 	int count = 0;
@@ -253,7 +246,7 @@ int MapS::comAvgTravelTime(string& search)
 	return avgTimeT / count;
 }
 //done
-int MapS::comNumLaunched(string& search)
+int MapS::comNumLaunched(string search)
 {
 	int flights = 0;
 	for (auto iter = data.begin(); iter != data.end(); iter++)
@@ -266,34 +259,34 @@ int MapS::comNumLaunched(string& search)
 	return flights;
 }
 //done
-int MapS::comNumDelayed(string& search)
+int MapS::comNumDelayed(string search)
 {
 	int number_flights_delayed = 0;
 	for (auto iter = data.begin(); iter != data.end(); iter++)
 	{
 		if (iter->second.carrier == search)
 		{
-			if (iter->second.carrier_delay != -1)
+			if (iter->second.carrier_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.weather_delay != -1)
+			else if (iter->second.weather_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.nas_delay != -1)
+			else if (iter->second.nas_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.security_delay != -1)
+			else if (iter->second.security_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.late_aircraft_delay != -1)
+			else if (iter->second.late_aircraft_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
@@ -353,38 +346,35 @@ float MapS::ADPerDelayed(string& o, string& d)
 	{
 		if (iter->second.origin == o && iter->second.destination == d)
 		{
-
-			if (iter->second.carrier_delay != -1)
+			total_flights++;
+			if (iter->second.carrier_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.weather_delay != -1)
+			else if (iter->second.weather_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.nas_delay != -1)
+			else if (iter->second.nas_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.security_delay != -1)
+			else if (iter->second.security_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.late_aircraft_delay != -1)
+			else if (iter->second.late_aircraft_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-
 		}
-
-		total_flights++;
 	}
-
+	//cout << total_flights << endl;
 	return number_flights_delayed / total_flights;
 }
 //done
@@ -424,27 +414,27 @@ int MapS::ADNumDelayed(string& o, string& d)
 	{
 		if (iter->second.origin == o && iter->second.destination == d)
 		{
-			if (iter->second.carrier_delay != -1)
+			if (iter->second.carrier_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.weather_delay != -1)
+			else if (iter->second.weather_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.nas_delay != -1)
+			else if (iter->second.nas_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.security_delay != -1)
+			else if (iter->second.security_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.late_aircraft_delay != -1)
+			else if (iter->second.late_aircraft_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
@@ -455,11 +445,11 @@ int MapS::ADNumDelayed(string& o, string& d)
 }
 //done
 //-----------------------------------option 3-------------------------------------------
-float MapS::airAvgDelay(string& search) //average X's at airport. 
+int MapS::airAvgDelay(string& search) //average X's at airport. 
 {
 	//search is the 3letter ATL
 	//this returns the average delay time at this specific airport
-	float avgDelayT = 0;
+	int avgDelayT = 0;
 	int count = 0;
 	for (auto iter = data.begin(); iter != data.end(); iter++)
 	{//if the 3letter idcode matches the passed in value
@@ -500,39 +490,37 @@ float MapS::airPercentDelayed(string& search)
 {
 	float total_flights = 0.0;
 	float number_flights_delayed = 0.0;
-
-
 	for (auto iter = data.begin(); iter != data.end(); iter++)
 	{
 		if (iter->second.origin == search)
 		{
-				if (iter->second.carrier_delay != -1)
-				{
-					number_flights_delayed++;
-					continue;
-				}
-				else if (iter->second.weather_delay != -1)
-				{
-					number_flights_delayed++;
-					continue;
-				}
-				else if (iter->second.nas_delay != -1)
-				{
-					number_flights_delayed++;
-					continue;
-				}
-				else if (iter->second.security_delay != -1)
-				{
-					number_flights_delayed++;
-					continue;
-				}
-				else if (iter->second.late_aircraft_delay != -1)
-				{
-					number_flights_delayed++;
-					continue;
-				}
+			total_flights++;
+			if (iter->second.carrier_delay != 0)
+			{
+				number_flights_delayed++;
+				continue;
+			}
+			else if (iter->second.weather_delay != 0)
+			{
+				number_flights_delayed++;
+				continue;
+			}
+			else if (iter->second.nas_delay != 0)
+			{
+				number_flights_delayed++;
+				continue;
+			}
+			else if (iter->second.security_delay != 0)
+			{
+				number_flights_delayed++;
+				continue;
+			}
+			else if (iter->second.late_aircraft_delay != 0)
+			{
+				number_flights_delayed++;
+				continue;
+			}
 		}
-		total_flights++;
 	}
 	return number_flights_delayed / total_flights;
 }
@@ -552,7 +540,7 @@ string MapS::airCarrier(string& search)
 	}
 	int maximum = 0; 
 	string maxString = "";
-	for (auto it = freqs.end(); it != freqs.end(); it++)
+	for (auto it = freqs.begin(); it != freqs.end(); it++)
 	{
 		if (it->second > maximum)
 		{
@@ -609,27 +597,27 @@ int MapS::airNumDelayed(string& search)
 	{
 		if (iter->second.origin == search)
 		{
-			if (iter->second.carrier_delay != -1)
+			if (iter->second.carrier_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.weather_delay != -1)
+			else if (iter->second.weather_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.nas_delay != -1)
+			else if (iter->second.nas_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.security_delay != -1)
+			else if (iter->second.security_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.late_aircraft_delay != -1)
+			else if (iter->second.late_aircraft_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
@@ -700,56 +688,6 @@ int MapS::avgDelay(string& search)
 	return delay / numflights;
 }
 //done
-//pair<vector<string>, vector<string>> MapS::airportHighLow(string search) {}
-//pair<vector<string>, vector<string>> MapS::airportHighLow(string search)
-//{
-//	/*pair of vectors that contain the 5 highest and lowest airport delay time
-//	first vector will have the highest, second will have the lowest*/
-//	//first vector will have 5 highest delay times as airports in order
-//	//second vector will have 5 lowest delay times as airports in order
-//	map<string, int > delay_times; //delay time, list of airports, sorted from lowest to highest
-//	for (auto iter = data.begin(); iter != data.end(); iter++)
-//	{
-//		int a = iter->second.carrier_delay;
-//		int b = iter->second.weather_delay;
-//		int c = iter->second.nas_delay;
-//		int d = iter->second.security_delay;
-//		int e = iter->second.late_aircraft_delay;
-//		int sum = a + b + c + d + e;
-//
-//		if (delay_times.count(iter->second.origin) == 0) { delay_times[iter->second.origin] = sum; }
-//		else delay_times[iter->second.origin] += sum;
-//
-//	}
-//	SortbyValue(delay_times, "Ascending");
-//
-//	vector<string> high;
-//	int counter = 5;
-//
-//	for (auto it = delay_times.begin(); it != delay_times.end(); it++)
-//	{
-//		high.push_back(it->first);
-//		counter--;
-//		if (counter == 0) break;
-//
-//	}
-//
-//	SortbyValue(delay_times, "Descending");
-//	vector<string> low;
-//	int counter2 = 5;
-//
-//	for (auto it = delay_times.begin(); it != delay_times.end(); it++)
-//	{
-//		low.push_back(it->first);
-//		counter2--;
-//		if (counter == 0) break;
-//
-//	}
-//	
-//	pair <vector<string>, vector<string>> PAIR = make_pair(high, low);
-//	return PAIR;
-//}
-
 int MapS::avgTravelTime(string& search)
 {
 	//average travel time for given delay
@@ -803,55 +741,6 @@ int MapS::avgTravelTime(string& search)
 	return travelTime/numflights;
 }
 //done
-//string MapS::bestAirport(string search)
-//{
-//	//best airport to travel with given delay
-//	//the best airport will have the lowest times for given delay
-//	map<string, int > delay_times;
-//	for (auto iter = data.begin(); iter != data.end(); iter++)
-//	{
-//		if (search == "CARRIER")
-//		{
-//			int a = iter->second.carrier_delay;
-//			if (delay_times.count(iter->second.origin) == 0) { delay_times[iter->second.origin] = a; }
-//			else delay_times[iter->second.origin] += a;
-//
-//		}
-//		else if (search == "WEATHER")
-//		{
-//			int b = iter->second.weather_delay;
-//			if (delay_times.count(iter->second.origin) == 0) { delay_times[iter->second.origin] = b; }
-//			else delay_times[iter->second.origin] += b;
-//		}
-//		else if (search == "NAS")
-//		{
-//			int c = iter->second.nas_delay;
-//			if (delay_times.count(iter->second.origin) == 0) { delay_times[iter->second.origin] = c; }
-//			else delay_times[iter->second.origin] += c;
-//		}
-//		else if (search == "SECURITY")
-//		{
-//			int d = iter->second.security_delay;
-//			if (delay_times.count(iter->second.origin) == 0) { delay_times[iter->second.origin] = d; }
-//			else delay_times[iter->second.origin] += d;
-//
-//		}
-//		else if (search == "LATE_AIRCRAFT")
-//		{
-//			int e = iter->second.security_delay;
-//			if (delay_times.count(iter->second.origin) == 0) { delay_times[iter->second.origin] = e; }
-//			else delay_times[iter->second.origin] += e;
-//		}
-//	}
-//	SortbyValue(delay_times, "Descending");
-//	string best = "";
-//	for (auto it = delay_times.begin(); it != delay_times.end(); it++)
-//	{
-//		best = it->first;
-//		break;
-//	}
-//	return best;
-//}
 //-----------------------------------option 5-------------------------------------------
 int MapS::timeAvgDelay(string& time)
 {//average delay time for given time, assuming user searches with 4 digits
@@ -897,18 +786,18 @@ string MapS::timeDelayType(string& time)
 }
 //done
 pair<vector<string>, vector<string>> MapS::airportDelayTimes(string& time)
-{//finds the airports with the best and worst delay time for the given time, first is best second is worst
+{//finds the airports with the best and worst delay time for the given time, first is best, second is worst
 	int search = stoi(time);
-	map<int, vector<string>> airports; //delay time, list of airports, sorted from lowest to highest
+	map<int, vector<string>> airprts; //delay time, list of airports, sorted from lowest to highest
 	for (auto iter = data.begin(); iter != data.end(); iter++)
 	{
 		if (iter->second.crs_dept_time == search)
 		{
-			airports[iter->second.dep_delay + iter->second.arr_delay].push_back(iter->second.origin);
+			airprts[iter->second.dep_delay + iter->second.arr_delay].push_back(iter->second.origin);
 		}
 
 	}
-	return make_pair(airports.begin()->second, airports.end()->second);
+	return make_pair(airprts.begin()->second, airprts.rbegin()->second);
 }
 //done
 float MapS::timePercentDelayed(string& time)
@@ -920,33 +809,33 @@ float MapS::timePercentDelayed(string& time)
 	{
 		if (iter->second.crs_dept_time == search)
 		{
-			if (iter->second.carrier_delay != -1)
+			total_flights++;
+			if (iter->second.carrier_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.weather_delay != -1)
+			else if (iter->second.weather_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.nas_delay != -1)
+			else if (iter->second.nas_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.security_delay != -1)
+			else if (iter->second.security_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
-			else if (iter->second.late_aircraft_delay != -1)
+			else if (iter->second.late_aircraft_delay != 0)
 			{
 				number_flights_delayed++;
 				continue;
 			}
 		}
-		total_flights++;
 	}
 	return number_flights_delayed / total_flights;
 }

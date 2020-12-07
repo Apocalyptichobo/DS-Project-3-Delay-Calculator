@@ -56,21 +56,23 @@ private:
 
 public:
 	map<string, Flight> data; //key first line, value is the flight data
-	//map<string, string> ID;
+	map<string, string> carrier;
+	map<string, string> airports;
+	vector<string> delays{"CARRIER", "WEATHER", "NAS", "SECURITY", "LATE_AIRCRAFT"};
 	MapS();
 	MapS(string d);
-	void Option1(string& input);//done
+	void Option1(string input);//done
 	void Option2(string& input, string& input2);//done
 	void Option3(string& input);//done
 	void Option4(string& input);//done
 	void Option5(string& input);//done
 	//company option 1 (DONE)
-	int comAvgDelay(string& search); //average delay time for company (done)
-	string comDelayType(string& search); //most common delay type for company (done)
-	float comPerDelayed(string& search); //percentage of flights delayed for company (done)
-	int comAvgTravelTime(string& search); //average travel time for company (done)
-	int comNumLaunched(string& search); //number of planes launched for company (done)
-	int comNumDelayed(string& search); //number of planes delayed for company (done)
+	int comAvgDelay(string search); //average delay time for company (done)
+	string comDelayType(string search); //most common delay type for company (done)
+	float comPerDelayed(string search); //percentage of flights delayed for company (done)
+	int comAvgTravelTime(string search); //average travel time for company (done)
+	int comNumLaunched(string search); //number of planes launched for company (done)
+	int comNumDelayed(string search); //number of planes delayed for company (done)
 
 	//arrival/departure option 2 (DONE)
 	int ADAvgDelay(string& o, string& d); //average delay time for A/D (done)
@@ -81,7 +83,7 @@ public:
 	int ADNumDelayed(string& o, string& d); //number of planes delayed (done)
 
 	//airport option 3 (DONE) 
-	float airAvgDelay(string& search); //average X's at airport.
+	int airAvgDelay(string& search); //average X's at airport.
 	string airDelayType(string& search); //find the most common type of delay for given airport 
 	float airPercentDelayed(string& search); //percentage delayed at given airport 
 	string airCarrier(string& search); //most common airline flown from given airport

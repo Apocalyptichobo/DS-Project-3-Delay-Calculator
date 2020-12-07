@@ -40,7 +40,7 @@ public:
     {
         int maximum = 0;
         string maxString = null_display;
-        for (auto it = freqs.end(); it != freqs.end(); it++)
+        for (auto it = freqs.begin(); it != freqs.end(); it++)
         {
             if (it->second > maximum)
             {
@@ -68,30 +68,30 @@ public:
 
     }
     //Option 1
-    float comAvgDelay(string& corp); //DONE, comAvgDelay
+    int comAvgDelay(string& corp); //DONE, comAvgDelay
     string comDelayType(string& corp); // DONE, comDelayType
     float comPerDelayed(string& corp); //DONE, comPerDelayed
-    float comAvgTravelTime(string& corp); //DONE, comAvgTravelTime
+    int comAvgTravelTime(string& corp); //DONE, comAvgTravelTime
     int comNumLaunched(string& corp); //DONE, comNumLaunched
     int comNumDelayed(string& corp); //DONE, comNumDelayed
 
     //Option 2
-    float ADAvgDelay(string& airpt1, string& airpt2); //DONE, ADAvgDelay
+    int ADAvgDelay(string& airpt1, string& airpt2); //DONE, ADAvgDelay
     string ADDelayType(string& airpt1, string& airpt2); //DONE, ADDelayType
     float ADPerDelayed(string& airpt1, string& airpt2); //DONE, ADPerDelayed
-    float avgTaxiTime(string& airpt1, string& airpt2, int in_or_out);
+    pair<int, int> avgTaxiTime(string& airpt1, string& airpt2);
     int ADNumLaunched(string& airpt1, string& airpt2); //DONE, ADNumLaunched
     int ADNumDelayed(string& airpt1, string& airpt2); //DONE, ADNumDelayed
 
     //Option 3
-    float airAvgDelay(string& airpt); //DONE, airAvgDelay
+    int airAvgDelay(string& airpt); //DONE, airAvgDelay
     string airDelayType(string& airpt); //DONE, airDelayType
     string airCarrier(string& airpt); //DONE, airCarrier
     float airPercentDelayed(string& airpt); //DONE, airPercentDelayed
     int airNumFlownTo(string& aiprt); //DONE, airNumFlown
     int airNumFlownFrom(string& airpt); // DONE, airNumFlown
     int airNumDelayed(string& airpt);
-    float airAvgTravelTime(string& airpt);
+    int airAvgTravelTime(string& airpt);
 
 
     //Option 4 - delays
@@ -100,13 +100,13 @@ public:
     // NAS
     // SECURITY
     // LATE_AIRCRAFT
-    float avgDelay(string& delayType); //DONE, avgDelay
+    int avgDelay(string& delayType); //DONE, avgDelay
     //pair<vector<string>,vector<string>> airportHighLow(string& delayType, int how_many); //airportHighLow
-    float avgTravelTime(string& delayType); //DONE, avgTravelTime
+    int avgTravelTime(string& delayType); //DONE, avgTravelTime
     //string bestAirport(string search); //, bestAirport
 
     //Option 5
-    float timeAvgDelay(int time_of_day); //DONE, timeAvgDelay
+    int timeAvgDelay(int time_of_day); //DONE, timeAvgDelay
     string timeDelayType(int time_of_day); //DONE, timeDelayType
     string airportDelayTimes(int time_of_day, int least_or_most); //DONE, airportDelayTimes
     float timePercentDelayed(int time_of_day); //DONE, timePercentDelayed
