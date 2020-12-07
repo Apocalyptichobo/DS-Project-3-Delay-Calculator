@@ -97,8 +97,8 @@ void MapS::Option2(string& input, string& input2)
 	cout << "Most common delay issue between " << input << " and " << input2 << ": " << ADDelayType(input, input2) << endl;
 	cout << "Average taxi-out time between " << input << " and " << input2 << ": " << avgTaxiTime(input, input2).first << " minutes" << endl;
 	cout << "Average taxi-in time between " << input << " and " << input2 << ": " << avgTaxiTime(input, input2).second << " minutes" << endl;
-	cout << "Number of planes delayed between " << input << " and " << input2 << ": " << ADNumDelayed(input, input2) << endl;
-	cout << "Number of planes launched between " << input << " and " << input2 << ": " << ADNumLaunched(input, input2) << endl;
+	cout << "Number of planes delayed from " << input << " to " << input2 << ": " << ADNumDelayed(input, input2) << endl;
+	cout << "Number of planes launched from " << input << " to " << input2 << ": " << ADNumLaunched(input, input2) << endl;
 	cout << "Percentage of flights delayed between " << input << " and " << input2 << ": %" << ADPerDelayed(input, input2) * 100 << endl;
 }
 //done
