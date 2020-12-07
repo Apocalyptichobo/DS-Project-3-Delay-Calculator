@@ -28,7 +28,7 @@ Average travel time for "DL": 111 minutes
 Number of planes delayed by "DL": 9543
 Number of planes launched by "DL": 69600
 Percentage of flights delayed for "DL": %13.7112
-Run time: 1.086 seconds
+Run time: 1.046 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -51,7 +51,7 @@ Average taxi-in time between "ATL" and "GNV": 18 minutes
 Number of planes delayed from "ATL" to "GNV": 33
 Number of planes launched from "ATL" to "GNV": 190
 Percentage of flights delayed between "ATL" and "GNV": %23.1579
-Run time: 0.059 seconds
+Run time: 0.056 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -66,15 +66,15 @@ Input an airport (via three letter identification code)
 Example: ATL
 Type 'help' for a list of valid three letter identification codes
 ATL
-Average delay time at "ATL": 1 minutes
+Average delay time at "ATL": 0 minutes
 Most common delay issue at "ATL": Carrier Delay
 Most common airline flown at "ATL": "9E"
-Average travel time at "ATL": 0 minutes
-Number of flights to "ATL": 159
+Average travel time at "ATL": 94 minutes
+Number of flights to "ATL": 29656
 Number of flights from "ATL": 29615
 Number of flights delayed at "ATL": 4813
 Percentage of flights delayed at "ATL": %16.2519
-Run time: 3.602 seconds
+Run time: 3.693 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -91,7 +91,7 @@ Type 'help' for a list of possible delays
 CARRIER
 Average delay time for CARRIER delay: 43 minutes
 Average travel time for CARRIER delay: 111 minutes
-Run time: 0.31 seconds
+Run time: 0.302 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -111,14 +111,4 @@ Most common delay for 0800 time: Nas Delay
 Airport to fly out of with the least amount of delay time at 0800 time: "JFK"
 Airport to not fly out of with most amount of delay time at 0800 time: "SEA"
 Chance that your flight will be delayed at 0800 time: %13.9073
-Run time: 0.237 seconds
-
-Please select an option from the following menu:
-1. Input a company (via company identification code)
-2. Input an arrival location and a departure location
-3. Input an airport (via three letter identification code)
-4. Input type of delay
-5. Input preferred departure time (example being 16:42)
-6. Exit
-
-6
+Run time: 0.232 seconds

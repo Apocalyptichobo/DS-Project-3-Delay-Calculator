@@ -23,12 +23,12 @@ Example: DL
 Type 'help' for a list of valid company identification codes
 DL
 Average delay time for "DL": 8 minutes
-Most common delay issue for "DL": Carrier Delay
+Most common delay issue for "DL": Nas Delay
 Average travel time for "DL": 121 minutes
 Number of planes delayed by "DL": 9543
 Number of planes launched by "DL": 69600
 Percentage of flights delayed for "DL": %13.7112
-Run time: 5.722 seconds
+Run time: 5.64 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -45,13 +45,13 @@ Type 'help' for a list of valid airport identification codes
 Origin: ATL
 Destination: GNV
 Average delay time between "ATL" and "GNV": 21 minutes
-Most common delay issue between "ATL" and "GNV": Carrier Delay
+Most common delay issue between "ATL" and "GNV": Late Air Craft Delay
 Average taxi-out time between "ATL" and "GNV": 4 minutes
 Average taxi-in time between "ATL" and "GNV": 18 minutes
 Number of planes delayed from "ATL" to "GNV": 44
 Number of planes launched from "ATL" to "GNV": 190
 Percentage of flights delayed between "ATL" and "GNV": %23.1579
-Run time: 6.566 seconds
+Run time: 6.704 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -67,14 +67,14 @@ Example: ATL
 Type 'help' for a list of valid three letter identification codes
 ATL
 Average delay time at "ATL": 14 minutes
-Most common delay issue at "ATL": Carrier Delay
+Most common delay issue at "ATL": Weather Delay
 Most common airline flown at "ATL": "DL"
 Average travel time at "ATL": 94 minutes
 Number of flights to "ATL": 29656
 Number of flights from "ATL": 29615
 Number of flights delayed at "ATL": 4813
 Percentage of flights delayed at "ATL": %16.2519
-Run time: 8.063 seconds
+Run time: 7.094 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -91,7 +91,7 @@ Type 'help' for a list of possible delays
 CARRIER
 Average delay time for CARRIER delay: 43 minutes
 Average travel time for CARRIER delay: 111 minutes
-Run time: 1.838 seconds
+Run time: 1.875 seconds
 
 Please select an option from the following menu:
 1. Input a company (via company identification code)
@@ -107,18 +107,8 @@ Example: 0800
 Times can be between 0000 and 2359
 0800
 Average delay time at 0800 time: 6 minutes
-Most common delay for 0800 time: Nas Delay
+Most common delay for 0800 time: Weather Delay
 Airport to fly out of with the least amount of delay time at 0800 time: "JFK"
 Airport to not fly out of with most amount of delay time at 0800 time: "SLC"
 Chance that your flight will be delayed at 0800 time: %15.526
-Run time: 4.198 seconds
-
-Please select an option from the following menu:
-1. Input a company (via company identification code)
-2. Input an arrival location and a departure location
-3. Input an airport (via three letter identification code)
-4. Input type of delay
-5. Input preferred departure time (example being 16:42)
-6. Exit
-
-6
+Run time: 3.399 seconds
