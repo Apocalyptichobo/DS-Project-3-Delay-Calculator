@@ -71,10 +71,6 @@ MapS::MapS(string d)
 
 void MapS::Option1(string input)
 {
-	/*string fix = "\"";
-	string correct = fix + input;
-	correct = correct.append(fix);*/
-	//check to see if input is valid
 	//Input a company (via company identification code) vf or DL (carrier)
 	cout << "Average delay time for " << input << ": " << comAvgDelay(input) << " minutes" << endl;
 	cout << "Most common delay issue for " << input << ": " << comDelayType(input) << endl;

@@ -15,9 +15,7 @@ class MapS {
 private:
 	struct Flight
 	{
-		//string date; //dont need
 		string carrier; //company VF DL
-		//string flight_number; //dont need
 
 		string origin; //airport ATL,
 		string destination; //airport
@@ -27,19 +25,11 @@ private:
 		int dep_delay; //delay time
 
 		int taxi_out; //need
-		//int wheels_off; //dont need
-
-		//int wheels_on; //dont need
 		int taxi_in; //need
 
-		//int crs_arr_time; //dont need
-		//int arr_time; //dont need
 		int arr_delay; //second delay time
 
 		int cancelled; 
-		//string cancel_code; //dont need
-
-		//int diverted; //dont need
 
 		int crs_elapsed_time; //keep just in case
 		int actual_elapsed_time; //keep just in case
