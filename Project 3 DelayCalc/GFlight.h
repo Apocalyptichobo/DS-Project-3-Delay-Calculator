@@ -23,14 +23,11 @@ public:
     int dep_delay; //delay time
 
     int taxi_out;
-
     int taxi_in;
-
 
     int arr_delay; //second delay time
 
     int cancelled;
-
 
     int crs_elapsed_time;
     int actual_elapsed_time;

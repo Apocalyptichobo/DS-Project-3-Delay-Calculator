@@ -66,6 +66,7 @@ public:
 	void Option3(string& input);//done
 	void Option4(string& input);//done
 	void Option5(string& input);//done
+	bool exist(string& o, string& d);
 	//company option 1 (DONE)
 	int comAvgDelay(string search); //average delay time for company (done)
 	string comDelayType(string search); //most common delay type for company (done)

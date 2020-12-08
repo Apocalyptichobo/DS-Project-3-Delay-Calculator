@@ -15,7 +15,6 @@ using namespace std;
 class GraphS {
 private:
     vector<GFlight>** data;
-    map<string, int> airports;
 public:
     GraphS(); //DONE
     void readData(string d); //DONE
@@ -24,7 +23,9 @@ public:
     void Option3(string& input);
     void Option4(string& input);
     void Option5(string& input);
-
+    map<string, int> airports;
+    map<string, string> carrier;
+    vector<string> delays{ "CARRIER", "WEATHER", "NAS", "SECURITY", "LATE_AIRCRAFT" };
 
     //The Big Three
     GraphS(const GraphS& other);
@@ -101,13 +102,11 @@ public:
     // SECURITY
     // LATE_AIRCRAFT
     int avgDelay(string& delayType); //DONE, avgDelay
-    //pair<vector<string>,vector<string>> airportHighLow(string& delayType, int how_many); //airportHighLow
     int avgTravelTime(string& delayType); //DONE, avgTravelTime
-    //string bestAirport(string search); //, bestAirport
 
     //Option 5
     int timeAvgDelay(int time_of_day); //DONE, timeAvgDelay
     string timeDelayType(int time_of_day); //DONE, timeDelayType
-    string airportDelayTimes(int time_of_day, int least_or_most); //DONE, airportDelayTimes
+    pair<vector<string>,vector<string>> airportDelayTimes(int time_of_day); //DONE, airportDelayTimes
     float timePercentDelayed(int time_of_day); //DONE, timePercentDelayed
 };

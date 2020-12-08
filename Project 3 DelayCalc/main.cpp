@@ -10,6 +10,8 @@
 #include <ctime>
 #include <random>
 #include <utility>
+#include <iomanip>
+#include <set>
 #include "graphstruc1.h"
 #include "mapstruc.h"
 using namespace std;
@@ -62,11 +64,11 @@ void Display() {
 void MenuSelect() {
 	cout << endl;
 	cout << "Please select an option from the following menu:" << endl;
-	cout << "1. Input a company (via company identification code)" << endl;
+	cout << "1. Input a company" << endl;
 	cout << "2. Input an arrival location and a departure location" << endl;
-	cout << "3. Input an airport (via three letter identification code)" << endl;
+	cout << "3. Input an airport" << endl;
 	cout << "4. Input type of delay" << endl;
-	cout << "5. Input preferred departure time (example being 16:42)" << endl;
+	cout << "5. Input preferred departure time" << endl;
 	cout << "6. Exit" << endl;
 	cout << endl;
 }
@@ -88,6 +90,23 @@ bool validateS(string input, vector<string> strings)
 			return true;
 	}
 	cout << "Invalid input" << endl;
+	return false;
+}
+bool validateT(string input)
+{
+	if (stoi(input) >= 1 && stoi(input) <= 2400) {
+		return true;
+	}
+	cout << "Invalid input, please type in a number between 0000 and 2359" << endl;
+	return false;
+}
+bool validateG(string input, vector<string> strings)
+{
+	for (unsigned int i = 0; i < strings.size(); i++)
+	{
+		if (input == strings[i])
+			return true;
+	}
 	return false;
 }
 int main() {
@@ -159,7 +178,31 @@ int main() {
 						correct = correct.append(fix);
 						//here is where you would append
 						if (input == "help") {
-							//help
+
+							int counter = m.carrier.size();
+							std::set<string> visited;
+
+							while(true)
+							{
+								int col_counter = 4;
+								for (auto it = m.carrier.begin(); it != m.carrier.end(); it++) 
+								{
+									if (visited.count(it->first) == 0)
+									{
+										cout << it->first << setw(1);
+										visited.insert(it->first);
+										col_counter--;
+										counter--;
+										if (counter == 0) break;
+										if (col_counter == 0) break;
+									}
+									else continue;
+
+								}
+								if (counter == 0) break;
+								cout << endl;
+							}
+							cout << endl;
 							v = false;
 						}
 						else if (!m.carrier.count(correct)) 
@@ -192,7 +235,31 @@ int main() {
 						correct = correct.append(fix);
 						//here is where you would append
 						if (input == "help") {
-							//make list
+
+							int counter = m.airports.size();
+							std::set<string> visited;
+
+							while (true)
+							{
+								int col_counter = 4;
+								for (auto it = m.airports.begin(); it != m.airports.end(); it++)
+								{
+									if (visited.count(it->first) == 0)
+									{
+										cout << it->first << setw(1);
+										visited.insert(it->first);
+										col_counter--;
+										counter--;
+										if (counter == 0) break;
+										if (col_counter == 0) break;
+									}
+									else continue;
+
+								}
+								if (counter == 0) break;
+								cout << endl;
+							}
+							cout << endl;
 							v = false;
 						}
 						else if (!m.airports.count(correct))
@@ -252,7 +319,31 @@ int main() {
 						correct = correct.append(fix);
 						//here is where you would append
 						if (input == "help") {
-							//make list
+
+							int counter = m.airports.size();
+							std::set<string> visited;
+
+							while (true)
+							{
+								int col_counter = 4;
+								for (auto it = m.airports.begin(); it != m.airports.end(); it++)
+								{
+									if (visited.count(it->first) == 0)
+									{
+										cout << it->first << setw(1);
+										visited.insert(it->first);
+										col_counter--;
+										counter--;
+										if (counter == 0) break;
+										if (col_counter == 0) break;
+									}
+									else continue;
+
+								}
+								if (counter == 0) break;
+								cout << endl;
+							}
+							cout << endl;
 							v = false;
 						}
 						if (!m.airports.count(correct))
@@ -283,7 +374,11 @@ int main() {
 						cin >> input;
 						//here is where you would append
 						if (input == "help") {
-							//help
+							for (int i = 0; i < m.delays.size(); i++)
+							{
+								cout << m.delays[i] << " ";
+							}
+							cout << endl;
 							v = false;
 						}
 						else if (!validateS(input, m.delays))
@@ -304,8 +399,19 @@ int main() {
 			{
 				cout << "Input a departure time (in military standard time)" << endl;
 				cout << "Example: 0800" << endl;
-				cout << "Times can be between 0000 and 2359" << endl;
-				cin >> input;
+				cout << "Times can be between 0001 and 2400" << endl;
+				bool v = false;
+				while (!v)
+				{
+					cin >> input;
+					if (!validateT(input))
+					{
+						v = false;
+					}
+					else {
+						v = true; //valid
+					}
+				}
 				clock_t t = clock();
 				m.Option5(input); //check to see if the input is correct/numeric
 				t = clock() - t;
@@ -328,101 +434,256 @@ int main() {
 			bool help = true;
 			if (menuOption == 1)
 			{
-				while (help) {
-					cout << "Input a company (via company two letter identification code)" << endl;
-					cout << "Example: DL" << endl;
-					cout << "Type 'help' for a list of company identification codes" << endl;
+				cout << "Input a company (via company two letter identification code)" << endl;
+				cout << "Example: DL" << endl;
+				cout << "Type 'help' for a list of valid company identification codes" << endl;
+				bool v = false;
+				while (!v)
+				{
 					cin >> input;
-					clock_t t = clock();
+					string fix = "\"";
+					string correct = fix + input;
+					correct = correct.append(fix);
+					//here is where you would append
 					if (input == "help") {
-						//make list
-	
+
+						int counter = g.carrier.size();
+						std::set<string> visited;
+
+						while (true)
+						{
+							int col_counter = 4;
+							for (auto it = g.carrier.begin(); it != g.carrier.end(); it++)
+							{
+								if (visited.count(it->first) == 0)
+								{
+									cout << it->first << setw(1);
+									visited.insert(it->first);
+									col_counter--;
+									counter--;
+									if (counter == 0) break;
+									if (col_counter == 0) break;
+								}
+								else continue;
+
+							}
+							if (counter == 0) break;
+							cout << endl;
+						}
+						cout << endl;
+						v = false;
+					}
+					else if (!g.carrier.count(correct))
+					{
+						cout << "Invalid carrier, type 'help' for a list of valid codes" << endl;
+						v = false;
 					}
 					else {
-						g.Option1(input);
-						help = false;
-						t = clock() - t;
-						cout << "Run time: " << t / 100 << " seconds" << endl;
+						input = correct;
+						v = true; //valid
 					}
 				}
+				clock_t t = clock();
+				g.Option1(input);
+				t = clock() - t;
+				cout << "Run time: " << (float)t / CLOCKS_PER_SEC << " seconds" << endl;
 			}
 			else if (menuOption == 2)
 			{
-				while (help) {
-					cout << "Input an origin airport and destination airport (via airport three letter identification code)" << endl;
-					cout << "Example: ATL" << endl;
-					cout << "Type 'help' for a list of airport identification codes" << endl;
+				cout << "Input an origin airport and destination airport (via airport three letter identification code)" << endl;
+				cout << "Example: ATL" << endl;
+				cout << "Type 'help' for a list of valid airport identification codes" << endl;
+				cout << "Origin: ";
+				bool v = false;
+				while (!v)
+				{
 					cin >> input;
+					string fix = "\"";
+					string correct = fix + input;
+					correct = correct.append(fix);
+					//here is where you would append
 					if (input == "help") {
-						//make list
-	
+
+						int counter = g.airports.size();
+						std::set<string> visited;
+
+						while (true)
+						{
+							int col_counter = 4;
+							for (auto it = g.airports.begin(); it != g.airports.end(); it++)
+							{
+								if (visited.count(it->first) == 0)
+								{
+									cout << it->first << setw(1);
+									visited.insert(it->first);
+									col_counter--;
+									counter--;
+									if (counter == 0) break;
+									if (col_counter == 0) break;
+								}
+								else continue;
+
+							}
+							if (counter == 0) break;
+							cout << endl;
+						}
+						cout << endl;
+						v = false;
 					}
-					cout << endl;
-					cout << "Destination: ";
-					cin >> input2;
-					clock_t t = clock();
-					if (input2 == "help") {
-						//make list
-	
+					else if (!g.airports.count(correct))
+					{
+						cout << "Invalid airport, type 'help' for a list of valid codes" << endl;
+						v = false;
 					}
-					else {
-						g.Option2(input, input2);
-						help = false;
-						t = clock() - t;
-						cout << "Run time: " << t / 100 << " seconds" << endl;
+					else
+					{
+						input = correct;
+						v = true; //valid
 					}
 				}
+
+				//enter destination
+				cout << "Destination: ";
+
+				bool v2 = false;
+				while (!v2)
+				{
+					cin >> input2;
+					string fix = "\"";
+					string correct2 = fix + input2;
+					correct2 = correct2.append(fix);
+					//here is where you would append
+					if (input2 == "help") {
+						//make list
+						v = false;
+					}
+					else if (!g.airports.count(correct2))
+					{
+						cout << "Invalid airport, type 'help' for a list of valid codes" << endl;
+						v2 = false;
+					}
+					else
+					{
+						input2 = correct2;
+						v2 = true; //valid
+					}
+				}
+				clock_t t = clock();
+				g.Option2(input, input2);
+				t = clock() - t;
+				cout << "Run time: " << (float)t / CLOCKS_PER_SEC << " seconds" << endl;
 			}
 			else if (menuOption == 3)
 			{
-				while (help) {
-					cout << "Input an airport (via three letter identification code)" << endl;
-					cout << "Example: ATL" << endl;
-					cout << "Type 'help' for a list of three letter identification codes" << endl;
+				cout << "Input an airport (via three letter identification code)" << endl;
+				cout << "Example: ATL" << endl;
+				cout << "Type 'help' for a list of valid three letter identification codes" << endl;
+				bool v = false;
+				while (!v)
+				{
 					cin >> input;
-					clock_t t = clock();
+					string fix = "\"";
+					string correct = fix + input;
+					correct = correct.append(fix);
+					//here is where you would append
 					if (input == "help") {
-						//make list
-	
+
+						int counter = g.airports.size();
+						std::set<string> visited;
+
+						while (true)
+						{
+							int col_counter = 4;
+							for (auto it = g.airports.begin(); it != g.airports.end(); it++)
+							{
+								if (visited.count(it->first) == 0)
+								{
+									cout << it->first << setw(1);
+									visited.insert(it->first);
+									col_counter--;
+									counter--;
+									if (counter == 0) break;
+									if (col_counter == 0) break;
+								}
+								else continue;
+
+							}
+							if (counter == 0) break;
+							cout << endl;
+						}
+						cout << endl;
+						v = false;
 					}
-					else {
-						g.Option3(input);
-						help = false;
-						t = clock() - t;
-						cout << "Run time: " << t / 100 << " seconds" << endl;
+					if (!g.airports.count(correct))
+					{
+						cout << "Invalid airport, type 'help' for a list of valid codes" << endl;
+						v = false;
 					}
+					else
+					{
+						v = true; //valid
+						input = correct;
+					}
+
 				}
+				clock_t t = clock();
+				g.Option3(input);
+				t = clock() - t;
+				cout << "Run time: " << (float)t / CLOCKS_PER_SEC << " seconds" << endl;
 			}
 			else if (menuOption == 4)
 			{
-				while (help) {
-					cout << "Input type of delay (from a given list of delays)" << endl;
-					cout << "Example: CARRIER" << endl;
-					cout << "Type 'help' for a list of possible delays" << endl;
-					cin >> input;
-					clock_t t = clock();
-					if (input == "help") {
-						//make list
-	
+			cout << "Input type of delay (from a given list of delays)" << endl;
+			cout << "Example: CARRIER" << endl;
+			cout << "Type 'help' for a list of possible delays" << endl;
+			bool v = false;
+			while (!v)
+			{
+				cin >> input;
+				//here is where you would append
+				if (input == "help") {
+					for (unsigned int i = 0; i < g.delays.size(); i++)
+					{
+						cout << g.delays[i] << " ";
 					}
-					else {
-						g.Option4(input);
-						help = false;
-						t = clock() - t;
-						cout << "Run time: " << t / 100 << " seconds" << endl;
-					}
+					cout << endl;
+					v = false;
 				}
+				else if (!validateG(input, g.delays))
+				{
+					cout << "Invalid carrier, type 'help' for a list of valid codes" << endl;
+					v = false;
+				}
+				else {
+					v = true; //valid
+				}
+			}
+			clock_t t = clock();
+			g.Option4(input);
+			t = clock() - t;
+			cout << "Run time: " << (float)t / CLOCKS_PER_SEC << " seconds" << endl;
 			}
 			else if (menuOption == 5)
 			{
-				cout << "Input a departure time (in military standard time)" << endl;
-				cout << "Example: 0800" << endl;
-				cout << "Times can be between 0000 and 2359" << endl;
+			cout << "Input a departure time (in military standard time)" << endl;
+			cout << "Example: 0800" << endl;
+			cout << "Times can be between 0001 and 2400" << endl;
+			bool v = false;
+			while (!v)
+			{
 				cin >> input;
-				clock_t t = clock();
-				g.Option5(input); //check to see if the input is correct/numeric
-				t = clock() - t;
-				cout << "Run time: " << t / 100 << " seconds" << endl;
+				if (!validateT(input))
+				{
+					v = false;
+				}
+				else {
+					v = true; //valid
+				}
+			}
+			clock_t t = clock();
+			g.Option5(input); //check to see if the input is correct/numeric
+			t = clock() - t;
+			cout << "Run time: " << (float)t / CLOCKS_PER_SEC << " seconds" << endl;
 			}
 			else if (menuOption < 1 || menuOption > 6)
 			{
